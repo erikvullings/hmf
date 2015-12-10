@@ -1,0 +1,90 @@
+{
+    "featureTypes" : {
+        "Mobiliteit" : {
+            "name" : "Mobiliteit",
+            "style" : {
+                "fillColor" : "#99ff99",
+                "strokeColor" : "#000000",
+                "fillOpacity": 0.05,
+                "drawingMode" : "Polygon",
+                "strokeWidth" : 1,
+                "iconWidth" : 30,
+                "iconHeight" : 30,
+                "iconUri" : "images/4018 zorgkantoor.png",
+                "nameLabel" : "time",
+                "maxTitleResolution" : -1
+            }, "propertyTypeKeys":"time;seconds;arriveTime"
+        },      
+        "Route" : {
+            "name" : "Route",
+            "style" : {
+                "nameLabel" : "duration",
+                "strokeColor" : "#AAAAAA",
+                "selectedStrokeColor" : "#CC3333",
+                "iconWidth" : 30,
+                "iconHeight" : 30,
+                "iconUri" : "images/route.png",
+                "strokeWidth" : 4,
+                "maxTitleResolution" : -1
+            }, "propertyTypeKeys":"fromLoc;toLoc;duration;startTime;arriveTime"
+        }
+    },
+    "propertyTypeData" : {
+        "time" : {
+            "label" : "time",
+            "type" : "duration",
+            "title" : "Time",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        },
+        "seconds" : {
+            "label" : "seconds",
+            "type" : "number",
+            "title" : "Seconds",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        },
+        "arriveTime" : {
+            "label" : "arriveTime",
+            "type" : "date",
+            "title" : "Arrive time",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        },
+        "startTime" : {
+            "label" : "startTime",
+            "type" : "date",
+            "title" : "Start time",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        },
+        "fromLoc" : {
+            "label" : "fromLoc",
+            "type" : "text",
+            "title" : "From",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        },
+        "toLoc" : {
+            "label" : "toLoc",
+            "type" : "text",
+            "title" : "To",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        },
+        "duration" : {
+            "label" : "duration",
+            "type" : "duration",
+            "title" : "Duration",
+            "visibleInCallOut" : true,
+            "canEdit" : false,
+            "isSearchable" : false
+        }
+    }
+}

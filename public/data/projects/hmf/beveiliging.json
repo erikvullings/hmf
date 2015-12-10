@@ -1,0 +1,72 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+
+    {
+      "type": "Feature",
+      "properties": { "FeatureTypeId" : "trigion", "name": "Frank Meeuwis", "phone" : "06-23425432","company":"trigion"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3079012632369995,
+          52.07771910434148
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "FeatureTypeId" : "trigion", "name": "Femke Wiersema", "phone" : "06-23425432","company":"trigion"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.309033155441284,
+          52.078210343977915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "FeatureTypeId" : "trigion", "name": "Marrit Veen", "phone" : "06-23425432","company":"trigion"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.30889368057251,
+          52.079143354711476
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "FeatureTypeId" : "trigion", "name": "Wouter Franken", "phone" : "06-23425432","company":"trigion"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.309805631637573,
+          52.08002030108433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "FeatureTypeId" : "trigion", "name": "Luuk de Vries", "phone" : "06-23425432","company":"trigion"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.309540092945099,
+          52.07566671920041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "FeatureTypeId" : "trigion", "name": "Floris Jansen", "phone" : "06-23425432","company":"trigion"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3104493618011475,
+          52.077844387446895
+        ]
+      }
+    }
+  ]
+}

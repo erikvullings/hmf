@@ -1,0 +1,45 @@
+{
+    "featureTypes": {
+        "shop": {
+            "name": "shop",
+            "style": {
+                "iconWidth": 32,
+                "iconHeight": 32,
+                "iconUri": "images/toyshop.png",
+                "stroke": false,
+                "fillColor": "#ffffff",
+                "opacity": 0.75,
+                "fillOpacity": 0.75,
+                "nameLabel": "Name"
+            },
+            "propertyTypeData": {
+                "Name": {
+                    "label": "Name",
+                    "title": "Winkel",
+                    "type": "text"
+                },
+                "Adres": {
+                    "label": "Adres",
+                    "title": "Adres",
+                    "type": "text"
+                },
+                "Postcode": {
+                    "label": "Postcode",
+                    "title": "Postcode",
+                    "type": "text"
+                },
+                "Plaats": {
+                    "label": "Plaats",
+                    "title": "Plaats",
+                    "type": "text"
+                },
+                "Info": {
+                    "label": "Info",
+                    "title": "Info",
+                    "type": "text"
+                }
+            },
+            "propertyTypeKeys": "Name;Adres;Postcode;Plaats;Info;"
+        }
+    }
+}

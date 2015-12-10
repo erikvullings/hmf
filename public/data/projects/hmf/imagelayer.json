@@ -1,0 +1,82 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "media": "http://www.drgreene.com/wp-content/uploads/When-to-Call-the-Doctor-after-your-Child-Hits-Her-Head1-377x240.jpg",
+            "relevance" : 0.3
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.310964345932007,
+                52.077138841162515
+            ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "media": "http://childrenssuccessfoundation.com/wp-content/uploads/bfi_thumb/The-Energy-challenged-child_blog-m6rbpew6gmvldxswianoagpjm52eloufia88kqdulo.jpg",
+            "relevance" : 0.2
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.310342073440552,
+                52.077956482558925
+            ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "media": "http://cdn.images.express.co.uk/img/dynamic/1/590x/boy-426568.jpg",
+            "relevance" : 0.4
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.312155246734619,
+                52.07752788208169
+            ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "media": "images/child1.jpg",
+            "relevance" : 0.95
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.310363531112671,
+                52.076314590725815
+            ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "media": "http://www.littlesproutphotography.com/blog/wp-content/uploads/2010/04/1.jpg",
+            "relevance" : 0.15
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.308485984802246,
+                52.078840045941014
+            ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "media": "http://i1.mirror.co.uk/incoming/article213913.ece/ALTERNATES/s615/child-on-mobile-pic-rex-819049891.jpg",
+            "relevance" : 0.25
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.3144941329956055,
+                52.07522655684604
+            ]
+        }
+    }]
+}

@@ -1,0 +1,412 @@
+{
+    "features": [{
+        "id": "vermist_kind_5_tm_8_jr",
+        "properties": {
+            "_rules": [{
+                "id": "vermist_kind_5_tm_8_jr",
+                "isGenericRule": true,
+                "description": "This script is responsible for providing the actions/suggestions for dealing with missing kids",
+                "conditions": [
+                    ["propertyEquals", "featureTypeId", "vermissing"],
+                    ["propertyGreaterOrEqualThan", "age", 5],
+                    ["propertyLessOrEqualThan", "age", 8],
+                    ["propertyContains", "roles", "rtic"]
+                ],
+                "actions": [
+                    ["add", "informeer_BT"],
+                    ["add", "informeer_lokale_eenheden"],
+                    ["add", "vermist_kind_5_tm_8_jr_s1"],
+                    ["add", "vermist_kind_5_tm_8_jr_s2"],
+                    ["add", "vermist_kind_5_tm_8_jr_s3"],
+                    ["add", "vermist_kind_5_tm_8_jr_s4"],
+                    ["add", "vermist_kind_5_tm_8_jr_s5"],
+                    ["add", "vermist_kind_5_tm_8_jr_s6"],
+                    ["add", "bsn"],
+                    ["add", "foto_aanvraag"],
+                    ["add", "woonadres"],
+                    ["add", "familie"],
+                    ["add", "vrienden"]
+                ]
+            }, {
+                "id": "imageSearchResult",
+                "isGenericRule": true,
+                "conditions": [
+                    ["propertyContains", "roles", "image search"]
+                ],
+                "actions": [
+                    ["add", "fotoSearchResult", 30]
+                ]
+            }]
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s1",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic"],
+            "belief": 3,
+            "Name": "Locatie: straat of park",
+            "description": "Jongens van deze leeftijd worden meestal (31%) op straat of in een openbaar park teruggevonden."
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s2",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic"],
+            "belief": 3,
+            "Name": "Locatie: terug naar huis",
+            "description": "27% van de kinderen gaat naar huis terug."
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s3",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic"],
+            "belief": 2,
+            "Name": "Locatie: bij familielid",
+            "description": "21% van de kinderen gaat naar het huis van een familielid."
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s4",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic"],
+            "belief": 2,
+            "Name": "Locatie: bij vriend(-in)",
+            "description": "19% van de kinderen gaat naar het huis van een vriend(-in)."
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s5",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic"],
+            "layer": "shops",
+            "belief": 1,
+            "Name": "Locatie: gevonden in winkel",
+            "description": "3% van de kinderen wordt terug gevonden in een winkel."
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s6",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic"],
+            "belief": 1,
+            "Name": "Overige scenario's",
+            "description": "Kind is meegenomen door ouder, bekende, of tegen zijn wil, of heeft depressieve neigingen."
+        }
+    }, {
+        "id": "vermist_kind_5_tm_8_jr_s7",
+        "properties": {
+            "featureTypeId": "scenario",
+            "from": "Scenario service",
+            "tags": ["scenario", "scenario1", "case1"],
+            "roles": ["rtic", "jeugdzorg"],
+            "belief": 2,
+            "Name": "Kind is meegenomen in auto",
+            "description": "Vanuit Jeugdzorg is een kentekenalarm geplaatst."
+        }
+    }, {
+        "id": "informeer_lokale_eenheden",
+        "properties": {
+            "featureTypeId": "tip",
+            "from": "Scenario service",
+            "tags": ["case1"],
+            "roles": ["oc"],
+            "prio": 4,
+            "Name": "Informeer lokale eenheden.",
+            "description": "Verstuur een algemene aandachtsvestiging aan alle lokale eenheden."
+        }
+    }, {
+        "id": "informeer_BT",
+        "properties": {
+            "featureTypeId": "tip",
+            "from": "Scenario service",
+            "tags": ["case1"],
+            "roles": ["oc"],
+            "prio": 3,
+            "Name": "Informeer BT en recherche.",
+            "description": "Informeer BT en district recherche."
+        }
+    }, {
+        "id": "osint",
+        "properties": {
+            "featureTypeId": "question",
+            "from": "Scenario service",
+            "tags": ["case1", "action"],
+            "roles": ["rtic"],
+            "prio": 2,
+            "Name": "Start OSINT service.",
+            "description": "Doorzoek social media.",
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "image search"]
+                ],
+                "actions": [
+                    ["add", "osint_resultaat", 3]
+                ]
+            }]
+        }
+    }, {
+        "id": "osint_resultaat",
+        "properties": {
+            "featureTypeId": "tip",
+            "from": "Scenario service",
+            "tags": ["case1", "action"],
+            "roles": ["rtic"],
+            "prio": 2,
+            "Name": "OSINT resultaat.",
+            "description": "Hits in social media."
+        }
+    }, {
+        "id": "woonadres",
+        "properties": {
+            "featureTypeId": "question",
+            "from": "Scenario service",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s1","vermist_kind_5_tm_8_jr_s2","vermist_kind_5_tm_8_jr_s3","vermist_kind_5_tm_8_jr_s4","vermist_kind_5_tm_8_jr_s5"],
+            "roles": ["rtic"],
+            "question": ["adres"],
+            "adres": " ",
+            "prio": 2,
+            "Name": "Adres",
+            "description": "Wat is het woonadres van het kind?",
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "agent"]
+                ],
+                "actions": [
+                    ["answer", "adres", "Dorpstraat 123 in Leiden", 20],
+                    ["add", "verblijfsvraag", 20],
+                    ["add", "Vraag over de looproute", 20]
+                ]
+            }]
+        }
+    }, {
+        "id": "bsn",
+        "properties": {
+            "featureTypeId": "question",
+            "from": "Scenario service",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s1","vermist_kind_5_tm_8_jr_s2","vermist_kind_5_tm_8_jr_s3","vermist_kind_5_tm_8_jr_s4","vermist_kind_5_tm_8_jr_s5"],
+            "roles": ["rtic"],
+            "question": ["bsn"],
+            "bsn": " ",
+            "prio": 2,
+            "Name": "BSN",
+            "description": "Wat is het BSN van het kind?",
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "agent"]
+                ],
+                "actions": [
+                    ["answer", "bsn", "123456789", 30],
+                    ["add", "Registratie bij Jeugdzorg", 30]
+                ]
+            }]
+        }
+    }, {
+        "id": "foto_aanvraag",
+        "properties": {
+            "featureTypeId": "question",
+            "from": "Scenario service",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s1","vermist_kind_5_tm_8_jr_s2","vermist_kind_5_tm_8_jr_s3","vermist_kind_5_tm_8_jr_s4","vermist_kind_5_tm_8_jr_s5"],
+            "roles": ["rtic"],
+            "prio": 2,
+            "Name": "Foto van kind.",
+            "description": "Email een foto van het kind zdd we de social media kunnen inzetten.",
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "agent"]
+                ],
+                "actions": [
+                    ["add", "osint", 30]
+                ]
+            }]
+        }
+    }, {
+        "id": "fotoSearchResult",
+        "properties": {
+            "featureTypeId": "question",
+            "from": "Image search service",
+            "tags": ["case1"],
+            "roles": ["rtic"],
+            "answered": true,
+            "prio": 2,
+            "layer": "imagematch",
+            "Name": "Zoekresultaten",
+            "description": "Zoekresultaten foto search."
+        }
+    }, {
+        "id": "familie",
+        "properties": {
+            "featureTypeId": "boolQuestion",
+            "from": "Scenario service",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s1","vermist_kind_5_tm_8_jr_s2","vermist_kind_5_tm_8_jr_s3","vermist_kind_5_tm_8_jr_s4","vermist_kind_5_tm_8_jr_s5"],
+            "roles": ["rtic"],
+            "question": ["answer"],
+            "answer": " ",
+            "prio": 2,
+            "Name": "Familie",
+            "description": "Woont er familie in de buurt?",
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "agent"]
+                ],
+                "actions": [
+                    ["answer", "answer",  "nee", 15]
+                ]
+            }]
+        }
+    }, {
+        "id": "vrienden",
+        "properties": {
+            "featureTypeId": "boolQuestion",
+            "from": "Scenario service",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s1","vermist_kind_5_tm_8_jr_s2","vermist_kind_5_tm_8_jr_s3","vermist_kind_5_tm_8_jr_s4","vermist_kind_5_tm_8_jr_s5"],
+            "roles": ["rtic"],
+            "question": ["answer"],
+            "answer": " ",
+            "prio": 2,
+            "Name": "Vrienden",
+            "description": "Wonen er vrienden in de buurt?",
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "agent"]
+                ],
+                "actions": [
+                    ["answer", "answer", "nee", 30]
+                ]
+            }]
+        }
+    }, {
+        "id": "verblijfsvraag",
+        "properties": {
+            "Name": "Verblijf",
+            "description": "Hoe lang verblijft u al in Den Haag?",
+            "answer": "Sinds 1.5h in Den Haag",
+            "from": "Agent 327",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s5"],
+            "roles": ["rtic"],
+            "tags": ["case1", "action", "afgeleid"],
+            "question": ["answer"],
+            "featureTypeId": "question",
+            "prio": 2
+        }
+    }, {
+        "id": "Vraag over de looproute",
+        "properties": {
+            "Name": "Looproute",
+            "description": "Wat is de looproute?",
+            "from": "rtic",
+            "roles": ["rtic"],
+            "question": ["looproute"],
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s5"],
+            "featureTypeId": "question",
+            "prio": 2,
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "agent"]
+                ],
+                "actions": [
+                    ["answer", "looproute", "Zie looproute", 20],
+                    ["add", "looproute", 20]
+                ]
+            }]
+        }
+    }, {
+        "id": "looproute",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [4.3233561515808105, 52.08028404098437],
+                [4.317154884338379, 52.07730368942356],
+                [4.316961765289306, 52.076736608850666],
+                [4.3158674240112305, 52.07719818660661],
+                [4.3128204345703125, 52.07577387417288],
+                [4.310631752014159, 52.074600101067865],
+                [4.310052394866943, 52.07491662719133],
+                [4.309580326080322, 52.075523295988575],
+                [4.308228492736816, 52.07520677416642]
+            ]
+        },
+        "properties": {
+            "Name": "Looproute",
+            "description": "De route gevolgd vanaf Den Haag CS",
+            "from": "Agent 327",
+            "tags": ["case1","vermist_kind_5_tm_8_jr_s5"],
+            "featureTypeId": "route",
+            "roles": ["rtic", "oc", "agent"],
+            "prio": 2
+        }
+    }, {
+        "id": "Registratie bij Jeugdzorg",
+        "properties": {
+            "Name": "Registratie bij Jeugdzorg",
+            "description": "Staat het kind geregistreerd bij Jeugdzorg?",
+            "from": "Scenario service",
+            "roles": ["rtic"],
+            "featureTypeId": "boolQuestion",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s6"],
+            "question": ["answer"],
+            "answer": " ",
+            "prio": 2,
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "jeugdzorg"]
+                ],
+                "actions": [
+                    ["answer", "answer", "ja", 30],
+                    ["add", "vermist_kind_5_tm_8_jr_s7", 30],
+                    ["add", "Kenteken waarschuwing", 30]
+                ]
+            }]
+        }
+    }, {
+        "id": "Kenteken waarschuwing",
+        "properties": {
+            "Name": "Geregistreerd bij Jeugdzorg",
+            "description": "Er dient alarm geslagen te worden indien een auto met kenteken 28-HRZ-3 in de buurt is.",
+            "from": "Trust Tester",
+            "roles": ["rtic"],
+            "featureTypeId": "action",
+            "answer": " ",
+            "tags": ["case1","action","vermist_kind_5_tm_8_jr_s6"],
+            "prio": 2,
+            "_rules": [{
+                "conditions": [
+                    ["propertyContains", "roles", "rdw"]
+                ],
+                "actions": [
+                    ["answer", "answer", "ja", 20],
+                    ["add", "Kenteken alarm", 20]
+                ]
+            }]
+        }
+    }, {
+        "id": "Kenteken alarm",
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [5.906299, 51.983673]
+        },
+        "properties": {
+            "Name": "Kenteken alarm",
+            "description": "Auto met kenteken 28-HRZ-3 is in Arnhem gesignaleerd.",
+            "from": "RDW",
+            "roles": ["rtic"],
+            "featureTypeId": "tip",
+            "tags": ["case1","vermist_kind_5_tm_8_jr_s6"],
+            "prio": 2
+        }
+    }]
+}

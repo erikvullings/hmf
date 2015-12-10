@@ -1,0 +1,52 @@
+{
+    "featureTypes": {
+        "wegwerkzaamheden": {
+            "style": {
+                "iconUri": "images/zwembad.png",
+                "strokeColor" : "#222222",
+                "nameLabel": "TITEL"
+            },
+            "showAllProperties": true
+        },
+        "zwembad": {
+            "style": {
+                "iconUri": "images/zwembad.png",
+                "fillColor": "#ffffff",
+                "nameLabel": "TITEL"
+            },
+            "showAllProperties": true
+        },
+        "parkeerplaats": {
+            "style": {
+                "iconUri": "images/parking.png",
+                "fillColor": "#ffffff",
+                "nameLabel": "TITEL"
+            },
+            "showAllProperties": true
+        },
+        "politiebureau": {
+            "style": {
+                "iconUri": "images/politiesmall.png",
+                "fillColor": "#ffffff",
+                "nameLabel": "TITEL"
+            },
+            "showAllProperties": true
+        },
+        "shop": {
+            "name": "shop",
+            "style": {
+                "iconWidth": 32,
+                "iconHeight": 32,
+                "iconUri": "images/toyshop.png",
+                "stroke": false,
+                "fillColor": "#ffffff",
+                "opacity": 0.75,
+                "fillOpacity": 0.75,
+                "nameLabel": "Name"
+            }
+        }
+    },
+    "propertyTypeData": {
+
+    }
+}

@@ -1,0 +1,419 @@
+{
+    "featureTypes": {
+        "imagematch": {
+            "name": "imagematch",
+            "style": {
+                "stroke": true,
+                "fillColor": "#FFFFFF",
+                "strokeColor": "#FFFFFF",
+                "drawingMode": "Point",
+                "strokeWidth": 5,
+                "iconUri": "{media}",
+                "nameLabel": "Name"
+            },
+            "propertyTypeKeys": "media;relevance"
+        },
+        "Webcams": {
+            "name": "Webcams",
+            "style": {
+                "stroke": true,
+                "fillColor": "#FFFFFF",
+                "strokeColor": "#FFFFFF",
+                "drawingMode": "Point",
+                "strokeWidth": 1,
+                "iconUri": "{iconurl}",
+                "nameLabel": "Name"
+            },
+            "propertyTypeKeys": "media"
+        },
+        "Twitter": {
+            "name": "Twitter",
+            "style": {
+                "stroke": true,
+                "fillColor": "#FFFFFF",
+                "strokeColor": "#FFFFFF",
+                "drawingMode": "Point",
+                "strokeWidth": 5,
+                "iconUri": "images/tweet.png",
+                "nameLabel": "Name"
+            },
+            "propertyTypeKeys": "text;user;media"
+        },
+        "Bar": {
+            "name": "Bar",
+            "style": {
+                "stroke": false,
+                "drawingMode": "Point",
+                "iconUri": "http://wiki.openstreetmap.org/w/images/thumb/3/36/2020_st_amenity_bar.svg/120px-2020_st_amenity_bar.svg.png",
+                "nameLabel": "Name"
+            }
+        },
+        "Parking": {
+            "name": "Parking",
+            "style": {
+                "stroke": false,
+                "drawingMode": "Point",
+                "iconUri": "http://wiki.openstreetmap.org/w/images/9/9a/Parking20.png"
+            }
+        },
+        "Ambulance": {
+            "name": "Ambulance",
+            "style": {
+                "stroke": true,
+                "fillColor": "#FFFFFF",
+                "strokeColor": "#FFFFFF",
+                "drawingMode": "Point",
+                "strokeWidth": 5,
+                "iconUri": "images/ambulance.png",
+                "nameLabel": "Name"
+            }
+        },
+        "Brandweer": {
+            "name": "Brandweer",
+            "style": {
+                "stroke": true,
+                "fillColor": "#FFFFFF",
+                "strokeColor": "#FFFFFF",
+                "drawingMode": "Point",
+                "strokeWidth": 5,
+                "iconUri": "images/brandweer.png",
+                "nameLabel": "Name"
+            }
+        },
+        "trigion": {
+            "name": "trigion",
+            "style": {
+                "stroke": true,
+                "fillColor": "#00ff18",
+                "drawingMode": "Polygon",
+                "strokeWidth": 1,
+                "iconUri": "images/trigion.png",
+                "nameLabel": "Name"
+            },
+            "propertyTypeKeys": "name;company;phone"
+        },
+        "buurten": {
+            "name": "Buurt Apps",
+            "style": {
+                "stroke": true,
+                "strokeColor": "#444444",
+                "drawingMode": "Polygon",
+                "strokeWidth": 2,
+                "iconUri": "images/whatsapp.png",
+                "nameLabel": "Name"
+            }
+        },
+        "route": {
+            "name": "route",
+            "style": {
+                "stroke": true,
+                "strokeColor": "#444444",
+                "drawingMode": "Line",
+                "strokeWidth": 5,
+                "iconUri": "images/missing_boy.png",
+                "nameLabel": "Name"
+            }
+        },
+        "mail": {
+            "name": "mail",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/missing_boy.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "sender,subject;description;media;tags;date"
+        },
+        "vermissing": {
+            "name": "vermissing",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/missing_boy.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "incident;description;gender;age;from;layer;tags;media;date"
+        },
+        "tip": {
+            "name": "Tip",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/info.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "Name;description;media"
+        },
+        "melding": {
+            "name": "melding",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/missing_boy.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "incident;description;from;layer;tags;media;date"
+        },
+        "question": {
+            "name": "Vraag",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/question.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "question;answer;answered;from;tags;bsn;boolAnswer;date",
+            "properties": {
+                "roles": ["rtic"],
+                "tags": ["case1", "action"]
+            }
+        },
+        "boolQuestion": {
+            "name": "Ja/nee vraag",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/question.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "boolQuestion;boolAnswer;answered;from;tags;date"
+        },
+        "action": {
+            "name": "Actie",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/action.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "action;description;status;from;tags;date"
+        },
+        "scenario": {
+            "name": "Scenario",
+            "style": {
+                "strokeColor": "white",
+                "fillColor": "#8fe349",
+                "drawingMode": "point",
+                "strokeWidth": 1,
+                "iconUri": "images/hypothesis.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "scenario;description;from;tags;belief;scenarioId;layer;date"
+        },
+        "werkzaamheden": {
+            "name": "Werkzaamheden",
+            "style": {
+                "strokeColor": "red",
+                "fillColor": "#8fe349",
+                "drawingMode": "polygon",
+                "strokeWidth": 1,
+                "iconUri": "images/werkzaamheden.png",
+                "nameLabel": "Name",
+                "opacity": 1,
+                "cornerRadius": 50
+            },
+            "propertyTypeKeys": "url"
+        }
+    },
+    "propertyTypeData": {
+        "url": {
+            "label": "URL",
+            "title": "Externe link",
+            "stringFormat": "[url={0}]Info[/url]",
+            "type": "bbcode"
+        },
+        "layer": {
+            "type": "layer",
+            "activation": "once"
+        },
+        "gender": {
+            "title": "Geslacht",
+            "type": "category",
+            "categories": ["man", "vrouw"]
+        },
+        "age": {
+            "title": "Leeftijd (jr)",
+            "type": "number"
+        },
+        "date": {
+            "type": "date"
+        },
+        "tags": {
+            "title": "Tags",
+            "type": "tags"
+        },
+        "sender": {
+            "title": "Van",
+            "type": "text"
+        },
+        "user": {
+            "title": "User"
+        },
+        "media": {
+            "title": "Media",
+            "label": "media",
+            "type": "media"
+        },
+        "subject": {
+            "title": "Onderwerp",
+            "type": "text"
+        },
+        "incident": {
+            "title": "Melding",
+            "label": "Name",
+            "type": "text"
+        },
+        "action": {
+            "title": "Actie",
+            "label": "Name",
+            "type": "text"
+        },
+        "question": {
+            "title": "Vraag",
+            "label": "Name",
+            "type": "text"
+        },
+        "boolQuestion": {
+            "title": "Vraag",
+            "label": "Name",
+            "type": "text"
+        },
+        "scenario": {
+            "label": "Name",
+            "title": "Scenario",
+            "type": "text"
+        },
+        "belief": {
+            "label": "belief",
+            "title": "Geloof",
+            "description": "Waarschijnlijkheid van het optreden van dit scenario, een getal tussen 0 en 10.",
+            "type": "number"
+        },
+        "answer": {
+            "label": "answer",
+            "title": "Antwoord",
+            "type": "text"
+        },
+        "boolAnswer": {
+            "label": "answer",
+            "title": "Ja of nee",
+            "type": "category",
+            "categories": ["ja", "nee"]
+        },
+        "answered": {
+            "label": "answered",
+            "title": "Beantwoord",
+            "type": "boolean"
+        },
+        "status": {
+            "label": "status",
+            "title": "Status",
+            "type": "options",
+            "options": ["Inactief", "Geparkeerd", "Actief", "Afgerond"]
+        },
+        "description": {
+            "label": "description",
+            "title": "Info",
+            "type": "text"
+        },
+        "bsn": {
+            "label": "Burger Service Number",
+            "type": "number"
+        },
+        "from": {
+            "label": "from",
+            "title": "Van",
+            "type": "text"
+        },
+        "name": {
+            "title": "Naam"
+        },
+        "phone": {
+            "title": "Telefoon"
+        },
+        "company": {
+            "title": "Bedrijf"
+        },
+        "text": {
+            "type": "textarea"
+        },
+        "relevance": {
+            "title": "Relevantie",
+            "type": "number",
+            "legend": {
+                "description": "Relevantie",
+                "legendKind": "discrete",
+                "visualAspect": "strokeColor",
+                "legendEntries": [{
+                        "label": "0 - 20",
+                        "color": "#008000",
+                        "interval": {
+                            "min": "0",
+                            "max": "0.2"
+                        }
+                    }, {
+                        "label": "20 - 40",
+                        "color": "#00FF00",
+                        "interval": {
+                            "min": "0.2",
+                            "max": "0.4"
+                        }
+                    }, {
+                        "label": "40 - 60",
+                        "color": "#FFFF00",
+                        "interval": {
+                            "min": "0.40",
+                            "max": "0.6"
+                        }
+                    }, {
+                        "label": "60 - 80",
+                        "color": "#FF0000",
+                        "interval": {
+                            "min": "0.60",
+                            "max": "0.80"
+                        }
+                    }, {
+                        "label": "80 - 100",
+                        "color": "#800000",
+                        "interval": {
+                            "min": "0.80",
+                            "max": "1"
+                        }
+                    }
+
+                ]
+            }
+        }
+    },
+    "url": "data/resourceTypes/rti.json"
+}

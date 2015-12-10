@@ -1,0 +1,28 @@
+{
+    "features": [{
+        "id": "vermistkind",
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [4.308183, 52.075287]
+        },
+        "properties": {
+            "Name": "Vermist kind",
+            "description": "Betreft een 7 jarige jongen.",
+            "from": "Agent 327",
+            "tags": ["gms", "case1"],
+            "roles": [],
+            "featureTypeId": "vermissing",
+            "questions": ["gender", "age"],
+            "gender": "man",
+            "age": 7,
+            "layer": "eenheden",
+            "prio": 2,
+            "_rules": [{
+                "actions": [
+                    ["add", 4]
+                ]
+            }]
+        }
+    }]
+}

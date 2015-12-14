@@ -1,3 +1,6 @@
+.hmf-label-xsmall{
+	width: 50px;
+}
 .hmf-label-small{
 	width: 80px;
 }
@@ -10,10 +13,21 @@
 .card-item-hmf{
 	margin-left: 2px;
 	padding-left: 4px;
+	padding-bottom: 9px;
 }
 .no-padding-left{
 	padding-left: 0px;
 }
 .no-padding-right{
 	padding-right: 0px;
+}
+.no-padding-both{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.hmf-border{
+	border: gray;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
 }

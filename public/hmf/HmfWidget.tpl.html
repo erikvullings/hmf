@@ -15,7 +15,10 @@
 		<div class="tab-pane active" id="hmf-1">
 			<div class="card-item card-item-hmf">
 				<div class="row">
-					<h4 class="col-md-12">Kind</h4>
+					<h4 class="col-md-8">Kind</h4>
+					<div class="col-md-4">
+						<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;" ng-click="vm.saveChild()">Update</button>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 no-padding-right">
@@ -24,13 +27,12 @@
 					</div>
 					<div class="col-md-6 no-padding-left">
 						<label class="control-label hmf-label-large" for="hmf-gender">Geslacht</label>
-						<select id="hmf-gender" data-ng-model="child.gender" class="hmf-label-small">
-							<option ng-selected="child.gender===$index" ng-repeat="gender in vm.genders track by $index" value="{{$index}}">{{gender}}</option>
+						<select id="hmf-gender" ng-model="child.gender" class="hmf-label-small" ng-options="vm.genders.indexOf(g) as g for g in vm.genders">
 						</select>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 no-padding-right"">
+					<div class="col-md-6 no-padding-right">
 						<label class="control-label hmf-label-small" for="hmf-adhd">Leeftijd</label>
 						<input type="number" ng-model="child.age" id="hmf-age" class="hmf-label-medium" />
 					</div>
@@ -39,46 +41,102 @@
 						<input type="checkbox" ng-model="child.adhd" id="hmf-adhd" />
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6 no-padding-right"">
+				<div class="row ">
+					<div class="col-md-6 no-padding-right">
 						<label class="control-label hmf-label-small" for="hmf-location">Locatie</label>
 						<input type="text" ng-model="child.location" id="hmf-location" class="hmf-label-medium" />
 					</div>
 					<div class="col-md-6 no-padding-left">
-						<label class="control-label hmf-label-large" for="hmf-transport">Vervoersmiddel</label>
-						<select id="hmf-transport" data-ng-model="child.transport" class="hmf-label-small">
-							<option ng-selected="child.transport" ng-repeat="transport in vm.transportoptions track by $index" value="{{$index}}">{{transport}}</option>
+						<label class="control-label hmf-label-large" for="hmf-transport">Vervoermiddel</label>
+						<select id="hmf-transport" ng-model="child.transport" class="hmf-label-small" ng-options="vm.transportoptions.indexOf(v) as v for v in vm.transportoptions">
 						</select>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<!--<label class="control-label" for="hmf-time">Tijdstip</label>-->
-						<p class="input-group">
-							<label class="control-label hmf-label-small" for="hmf-time">Tijdstip</label>
-							<input type="text" id="hmf-time" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="child.time" ng-click="vm.openCalendar($event, prop)"
-							is-open="vm.isOpen" />
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-default" ng-click="openCalendar($event, prop)"><i class="fa fa-calendar"></i></button>
-							</span>
-						</p>
+						<label class="control-label hmf-label-small" for="hmf-time">Tijdstip</label>
+						<input type="text" id="hmf-time" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="child.time" ng-click="vm.openCalendar($event, prop)"
+						is-open="vm.isOpen" style="width:75%;display:inline-block;cursor:pointer;" />
 					</div>
 				</div>
 			</div>
 			<div class="card-item card-item-hmf">
 				<div class="row">
-					<h4 class="col-md-12">Attractoren</h4>
+					<h4 class="col-md-8">Attractoren</h4>
+					<div class="col-md-4">
+						<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;" ng-click="vm.saveAttractors()">Update</button>
+					</div>
 				</div>
 				<div class="row">
-					
+					<div class="col-md-6 control-label hmf-label-small">Type</div>
+					<div class="col-md-6 control-label hmf-label-small">Aantrekkelijkheid</div>
+				</div>
+				<div class="row" ng-repeat="a in attractors track by $index">
+					<div class="col-md-6 control-label" style="padding-left:15px;">{{a.attractorType}}</div>
+					<div class="col-md-5">
+						<input class="ui-slider" type="range" min="0" max="100" ng-model="a.attractiveness" id="hmf-attractor-{{$index}}" style="display:inline-block"
+						/>
+					</div>
+					<div class="col-md-1">{{a.attractiveness}}</div>
 				</div>
 			</div>
 			<div class="card-item card-item-hmf">
 				<div class="row">
 					<h4 class="col-md-12">POI's</h4>
 				</div>
-				<div class="row">
-					
+				<div class="table hmf-border">
+					<div class="row" style="margin-top:4px;">
+						<div class="col-md-10">
+							<label class="control-label hmf-label-large" for="hmf-poi-name">Naam</label>
+							<input type="text" ng-model="poi.name" id="hmf-poi-name" class="hmf-label-large" />
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;margin-top:0px" ng-click="vm.addPoi()">Voeg toe</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10">
+							<label class="control-label hmf-label-large" for="hmf-poi-zip" >Postcode + Nr.</label>
+							<input type="text" ng-model="poi.address.zip" id="hmf-poi-zip" placeholder="1234AB" class="hmf-label-small" />
+							<input type="number" ng-model="poi.address.houseNumber" placeholder="100" id="hmf-poi-nr" class="hmf-label-xsmall" />
+							<input type="text" ng-model="poi.address.houseNumberExtension" placeholder="a" id="hmf-poi-nrext" class="hmf-label-xsmall" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10">
+							<label class="control-label hmf-label-large" for="hmf-poi-street">Straat</label>
+							<input type="text" ng-model="poi.address.street" id="hmf-poi-street" class="hmf-label-large" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10">
+							<label class="control-label hmf-label-large" for="hmf-poi-town">Plaats</label>
+							<input type="text" ng-model="poi.address.city" id="hmf-poi-town" class="hmf-label-large" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10">
+							<label class="control-label hmf-label-large" for="hmf-poi-type">Type POI</label>
+							<select id="hmf-poi-type" ng-model="poi.type" class="hmf-label-large" ng-options="vm.poitypes.indexOf(p) as p for p in vm.poitypes">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="table">
+					<div class="row" ng-if="vm.pois.length > 0" style="margin-top:10px">
+						<div class="col-md-3 control-label">Type</div>
+						<div class="col-md-3 control-label">Naam</div>
+						<div class="col-md-6 control-label">Adres</div>
+					</div>
+					<div class="row" ng-repeat="poi in vm.pois track by $index" style="margin-top:10px">
+						<div class="col-md-3" style="padding-left:15px;margin-left:5px;">{{vm.poitypes[poi.type]}}</div>
+						<div class="col-md-3 hmf-label-medium">{{poi.name}}</div>
+						<div class="col-md-6">{{poi.address.street}} {{poi.address.houseNumber}}{{poi.address.houseNumberExtension}}, {{poi.address.city}}
+							<button class="fa fa-pencil leftpanel-header-button" ng-click="vm.editPoi(poi)" />
+							<button class="fa fa-trash-o leftpanel-header-button" ng-click="vm.removePoi(poi)" />
+							<button class="fa fa-search leftpanel-header-button" ng-click="vm.zoomToPoi(poi)" />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

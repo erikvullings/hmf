@@ -191,6 +191,7 @@ module App {
         'csComp',
         'ngSanitize',
         'ui.bootstrap',
+        'ui.bootstrap.datetimepicker',
         'ui.select',
         'LocalStorageModule',
         'angularUtils.directives.dirPagination',

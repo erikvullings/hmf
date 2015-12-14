@@ -1,0 +1,19 @@
+.hmf-label-small{
+	width: 80px;
+}
+.hmf-label-medium{
+	width: 100px;
+}
+.hmf-label-large{
+	width: 120px;
+}
+.card-item-hmf{
+	margin-left: 2px;
+	padding-left: 4px;
+}
+.no-padding-left{
+	padding-left: 0px;
+}
+.no-padding-right{
+	padding-right: 0px;
+}

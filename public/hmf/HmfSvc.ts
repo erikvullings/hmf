@@ -15,6 +15,11 @@ module hmf {
         city:                 string;
     }
 
+    export enum PersonGender {
+        male = 0,
+        female = 1
+    }
+
     export enum PersonType {
         child,
         parent,
@@ -60,6 +65,12 @@ module hmf {
             new Attractor(AttractorType.school, 60),
             new Attractor(AttractorType.shop | AttractorType.toy, 50)
         ];
+    }
+
+    export enum TransportType {
+        walk = 0,
+        bike = 1,
+        childscooter = 2 //step
     }
 
     export class hmfSvc {

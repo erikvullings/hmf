@@ -1,3 +1,91 @@
-<div>
-	<p>Hello Bob's HMF</p>
+<div class="container-fluid hmf-tabs" style="position: relative;height:45px">
+	<div class="row" style="overflow:hidden">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="hmfTabs" style="margin-left:10px">
+			<li data-toggle="tab" class="active">
+				<a data-target="#hmf-1" data-toggle="tab" ng-click="activateTab(1)">Kenmerken</a>
+			</li>
+			<li data-toggle="tab">
+				<a data-target="#hmf-2" data-toggle="tab" ng-click="activateTab(2)">Overzicht</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="tab-content" style="top:50px; overflow-y: auto; overflow-x: hidden" resize resize-y="150">
+		<div class="tab-pane active" id="hmf-1">
+			<div class="card-item card-item-hmf">
+				<div class="row">
+					<h4 class="col-md-12">Kind</h4>
+				</div>
+				<div class="row">
+					<div class="col-md-6 no-padding-right">
+						<label class="control-label hmf-label-small" for="hmf-name">Naam</label>
+						<input type="text" ng-model="child.name" id="hmf-name" class="hmf-label-medium" />
+					</div>
+					<div class="col-md-6 no-padding-left">
+						<label class="control-label hmf-label-large" for="hmf-gender">Geslacht</label>
+						<select id="hmf-gender" data-ng-model="child.gender" class="hmf-label-small">
+							<option ng-selected="child.gender===$index" ng-repeat="gender in vm.genders track by $index" value="{{$index}}">{{gender}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 no-padding-right"">
+						<label class="control-label hmf-label-small" for="hmf-adhd">Leeftijd</label>
+						<input type="number" ng-model="child.age" id="hmf-age" class="hmf-label-medium" />
+					</div>
+					<div class="col-md-6 no-padding-left">
+						<label class="control-label hmf-label-large" for="hmf-adhd">ADHD</label>
+						<input type="checkbox" ng-model="child.adhd" id="hmf-adhd" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 no-padding-right"">
+						<label class="control-label hmf-label-small" for="hmf-location">Locatie</label>
+						<input type="text" ng-model="child.location" id="hmf-location" class="hmf-label-medium" />
+					</div>
+					<div class="col-md-6 no-padding-left">
+						<label class="control-label hmf-label-large" for="hmf-transport">Vervoersmiddel</label>
+						<select id="hmf-transport" data-ng-model="child.transport" class="hmf-label-small">
+							<option ng-selected="child.transport" ng-repeat="transport in vm.transportoptions track by $index" value="{{$index}}">{{transport}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<!--<label class="control-label" for="hmf-time">Tijdstip</label>-->
+						<p class="input-group">
+							<label class="control-label hmf-label-small" for="hmf-time">Tijdstip</label>
+							<input type="text" id="hmf-time" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="child.time" ng-click="vm.openCalendar($event, prop)"
+							is-open="vm.isOpen" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="openCalendar($event, prop)"><i class="fa fa-calendar"></i></button>
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="card-item card-item-hmf">
+				<div class="row">
+					<h4 class="col-md-12">Attractoren</h4>
+				</div>
+				<div class="row">
+					
+				</div>
+			</div>
+			<div class="card-item card-item-hmf">
+				<div class="row">
+					<h4 class="col-md-12">POI's</h4>
+				</div>
+				<div class="row">
+					
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="hmf-2">
+			<div>
+				<p>Tab 2</p>
+			</div>
+		</div>
+	</div>
 </div>

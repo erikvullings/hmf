@@ -92,11 +92,11 @@ module hmf {
                 if (title !== 'loaded') return;
                 this.loadLayers();
             });
-            
+
             this.messageBusService.subscribe('layer', (title, layer: csComp.Services.ProjectLayer) => {
                 if (title !== 'activated') return;
                 this.loadFeatures(layer);
-            }); 
+            });
 
         }
 
@@ -110,7 +110,7 @@ module hmf {
                 });
             });
         }
-        
+
         /** Load all features in a layer and turn the layer off. */
         private loadFeatures(layer: csComp.Services.ProjectLayer) {
             for (var key in layer.group.markers) {
@@ -118,7 +118,7 @@ module hmf {
             };
             this.layerService.removeLayer(layer);
         }
-        
+
         /** Add a person of interest */
         add(p: PersonOfInterest) {
             this.personsOfInterest.push(p);
@@ -130,7 +130,7 @@ module hmf {
             if (index < 0) return;
             this.personsOfInterest.splice(index, 1);
         }
-        
+
         /** A set of default attractor types, such as schools, parks, toy shops, etc. with a default attractiveness for this particular child. */
         getAttractorTypes() {
             // Specify the logic to select a specific category.

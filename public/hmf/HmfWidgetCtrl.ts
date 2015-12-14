@@ -36,7 +36,7 @@ module hmf {
             $scope.data = <HmfWidgetData>this.widget.data;
 
             this.parentWidget = $('#' + this.widget.elementId).parent();
-                    
+
             this.$messageBus.subscribe('feature', (action: string, feature: csComp.Services.IFeature) => {
                 switch (action) {
                     case 'onFeatureDeselect':
@@ -52,5 +52,5 @@ module hmf {
         private selectFeature(feature: csComp.Services.IFeature) {
 			
 		}
-    }	
+    }
 }

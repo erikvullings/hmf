@@ -116,7 +116,7 @@ module hmf {
             for (var key in layer.group.markers) {
                 this.attractors.push(layer.group.markers[key].feature);
             };
-            this.layerService.removeLayer(layer);
+            //this.layerService.removeLayer(layer);
         }
 
         /** Add a person of interest */

@@ -1,0 +1,50 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="vm.cancel()" aria-hidden="true">&times;</button>
+        <h3 class="modal-title" translate>POI Editor</h3>
+    </div>
+    <div class="modal-body container-fluid" style="margin: 10px">
+        <div class="row" style="margin-top:4px;">
+            <div class="col-md-12">
+                <label class="control-label hmf-label-large" for="hmf-poi-name">Naam</label>
+                <input type="text" placeholder="Naam" ng-model="vm.poi.name" id="hmf-poi-name" class="hmf-label-large" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label hmf-label-large" for="hmf-poi-type">Type relatie</label>
+                <select id="hmf-poi-type" ng-model="vm.poi.type" class="hmf-label-large" ng-options="value as key for (key, value) in vm.poitypes">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label hmf-label-large" for="hmf-poi-zip">Straat en plaats</label>
+                <input type="text" placeholder="Straat" ng-model="vm.poi.address.street" id="hmf-poi-street" class="hmf-label-large" />
+                <input type="text" placeholder="Plaats" ng-model="vm.poi.address.city" id="hmf-poi-town" class="hmf-label-large" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label hmf-label-large" for="hmf-poi-street">Postcode en nr.</label>
+                <input type="text" ng-model="vm.poi.address.zip" id="hmf-poi-zip" placeholder="1234AB" class="hmf-label-small" />
+                <input type="number" ng-model="vm.poi.address.houseNumber" placeholder="100" id="hmf-poi-nr" class="hmf-label-xsmall" />
+                <input type="text" ng-model="vm.poi.address.houseNumberExtension" placeholder="a" id="hmf-poi-nrext" class="hmf-label-xsmall"
+                />
+                <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.findZip()" style="font-size:20px;float:none;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label hmf-label-large" for="hmf-poi-street">Locatie</label>
+                <input type="number" disabled placeholder="Lat" ng-model="vm.poi.location.coordinates[0]" id="hmf-poi-lat" class="hmf-label-large" />
+                <input type="number" disabled placeholder="Lon" ng-model="vm.poi.location.coordinates[1]" id="hmf-poi-lon" class="hmf-label-large" />
+                <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.selectLocation()" style="font-size:20px;float:none;" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-ng-click="vm.cancel()" translate>CANCEL_BTN</button>
+        <button type="button" class="btn btn-primary" data-ng-click="vm.save()" translate>OK_BTN</button>
+    </div>
+</div>

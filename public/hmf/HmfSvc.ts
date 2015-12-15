@@ -1,18 +1,18 @@
 module hmf {
     export interface IAddress {
-        street:                string;
-        houseNumber:           number;
+        street: string;
+        houseNumber: number;
         houseNumberExtension?: string;
-        zip:                   string;
-        city:                  string;
+        zip: string;
+        city: string;
     }
 
     export class Address implements IAddress {
-        street:               string;
-        houseNumber:          number;
+        street: string;
+        houseNumber: number;
         houseNumberExtension: string;
-        zip:                  string;
-        city:                 string;
+        zip: string;
+        city: string;
     }
 
     export enum PersonGender {
@@ -20,33 +20,33 @@ module hmf {
         female = 1
     }
 
-    export enum PersonType {
-        child,
-        parent,
-        brother,
-        sister,
-        caretaker,
+    export enum PointOfInterestType {
         family,
-        friend
+        friend,
+        school,
+        sportsclub,
+        shop,
+        other
     }
 
-    export class PersonOfInterest {
-        name:        string;
+    export class PointOfInterest {
+        name: string;
         description: string;
-        address:     Address;
-        type:        PersonType;
-        age:         number;
+        address: Address;
+        type: PointOfInterestType;
+        age: number;
+        location: csComp.Services.IGeoJsonGeometry;
     }
 
     export enum AttractorType {
-        unknown      = 0,
-        school       = 1,
-        park         = 2,
-        shop         = 4,
-        toy          = 8,
-        doll         = 16,
+        unknown = 0,
+        school = 1,
+        park = 2,
+        shop = 4,
+        toy = 8,
+        doll = 16,
         construction = 32,
-        event        = 64
+        event = 64
     }
 
     export class Attractor {
@@ -74,7 +74,7 @@ module hmf {
     }
 
     export class hmfSvc {
-        private personsOfInterest: PersonOfInterest[];
+        private personsOfInterest: PointOfInterest[];
         private attractors: csComp.Services.IFeature[] = [];
 
         static $inject = [
@@ -131,12 +131,12 @@ module hmf {
         }
 
         /** Add a person of interest */
-        add(p: PersonOfInterest) {
+        add(p: PointOfInterest) {
             this.personsOfInterest.push(p);
         }
 
         /** Remove a person of interest */
-        remove(p: PersonOfInterest) {
+        remove(p: PointOfInterest) {
             var index = this.personsOfInterest.indexOf(p);
             if (index < 0) return;
             this.personsOfInterest.splice(index, 1);

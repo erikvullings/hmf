@@ -9,8 +9,8 @@ module hmf {
         time: Date;
         adhd: boolean;
         age: number;
-        gender: hmf.PersonGender;
-        transport: hmf.TransportType;
+        gender: PersonGender;
+        transport: TransportType;
     }
 
     export interface IHmfWidgetScope extends ng.IScope {
@@ -18,8 +18,8 @@ module hmf {
         data: HmfWidgetData;
         minimized: boolean;
         child: Child;
-        poi: hmf.PersonOfInterest;
-        attractors: hmf.Attractor[];
+        poi: PointOfInterest;
+        attractor: Attractor;
     }
 
     export class HmfWidgetCtrl {
@@ -27,15 +27,18 @@ module hmf {
         private widget: csComp.Services.IWidget;
         private parentWidget: JQuery;
 
-        private genders: string[];
-        private poitypes: string[];
-        private transportoptions: string[];
-        private pois: hmf.PersonOfInterest[];
+        private genders: { [key: string]: any };
+        private poitypes: { [key: string]: any };
+        private attractorTypes: { [key: string]: any };
+        private transportoptions: { [key: string]: any };
+        private pois: PointOfInterest[];
+        private attractors: Attractor[];
         private isOpen: boolean;
 
         public static $inject = [
             '$scope',
             '$timeout',
+            '$uibModal',
             'layerService',
             'messageBusService',
             'mapService'
@@ -44,6 +47,7 @@ module hmf {
         constructor(
             private $scope: IHmfWidgetScope,
             private $timeout: ng.ITimeoutService,
+            private $modal: any,
             private $layerService: csComp.Services.LayerService,
             private $messageBus: csComp.Services.MessageBusService,
             private $mapService: csComp.Services.MapService
@@ -76,9 +80,12 @@ module hmf {
             this.setGenders();
             this.setTransportOptions();
             this.setDefaultChild();
+            this.setAttractorTypes();
+            this.resetAttractor();
+            this.setDefaultAttractors();
             this.setPoiTypes();
             this.resetPoi();
-            this.setDefaultAttractors();
+            this.setDefaultPois();
         }
 
         private selectFeature(feature: csComp.Services.IFeature) {
@@ -108,22 +115,79 @@ module hmf {
 
         private resetPoi() {
             if (this.$scope.poi) delete this.$scope.poi;
-            this.$scope.poi = new hmf.PersonOfInterest();
+            this.$scope.poi = new PointOfInterest();
         }
 
-        private editPoi(poi: hmf.PersonOfInterest) {
-            let p = JSON.parse(JSON.stringify(poi)); //clone
-            this.removePoi(poi);
-            this.$scope.poi = p;
+        private editPoi(poi: PointOfInterest) {
+            this.openPoiModal(poi);
         }
 
-        private removePoi(poi: hmf.PersonOfInterest) {
+        private removePoi(poi: PointOfInterest) {
             if (this.pois.indexOf(poi) > -1) {
                 this.pois.splice(this.pois.indexOf(poi), 1);
             }
         }
 
-        private zoomToPoi(poi: hmf.PersonOfInterest) {
+        private zoomToPoi(poi: PointOfInterest) {
+            return;
+        }
+
+        private openAddPoiModal() {
+            var poi = new PointOfInterest();
+            this.openPoiModal(poi);
+        }
+
+        private openPoiModal(inPoi: PointOfInterest) {
+            var backupPoi = JSON.parse(JSON.stringify(inPoi));
+            this.removePoi(inPoi);
+            var modalInstance = this.$modal.open({
+                templateUrl: 'hmf/POIView.tpl.html',
+                controller: POIViewCtrl,
+                resolve: {
+                    poi: () => inPoi,
+                    poitypes: () => this.poitypes
+                }
+            });
+            modalInstance.result.then((poi: PointOfInterest) => {
+                if (poi.hasOwnProperty('type') && poi.hasOwnProperty('name') && poi.hasOwnProperty('location')) {
+                    this.pois.push(poi);
+                }
+            }, () => {
+                if (backupPoi.hasOwnProperty('type') && backupPoi.hasOwnProperty('name') && backupPoi.hasOwnProperty('location')) {
+                    this.pois.push(backupPoi);
+                }
+            });
+        }
+
+        private addAttractor() {
+            let a = JSON.parse(JSON.stringify(this.$scope.attractor)); //clone
+            this.attractors.push(a);
+            this.resetAttractor();
+            return;
+        }
+
+        private resetAttractor() {
+            if (this.$scope.attractor) delete this.$scope.attractor;
+            this.$scope.attractor = new Attractor(AttractorType.unknown, 0);
+        }
+
+        private editAttractor(attr: Attractor) {
+            let a = JSON.parse(JSON.stringify(attr)); //clone
+            this.removeAttractor(attr);
+            this.$scope.attractor = a;
+        }
+
+        private removeAttractor(attr: Attractor) {
+            if (this.attractors.indexOf(attr) > -1) {
+                this.attractors.splice(this.attractors.indexOf(attr), 1);
+            }
+        }
+
+        private getAttractorName(type: number): string {
+            return AttractorType[type];
+        }
+
+        private zoomToAttractor(attr: Attractor) {
             return;
         }
 
@@ -131,42 +195,47 @@ module hmf {
             let c = new Child();
             c.name = '';
             c.age = 8;
-            c.gender = hmf.PersonGender.male;
+            c.gender = PersonGender.male;
             c.time = new Date();
             c.location = '';
             c.adhd = false;
-            c.transport = hmf.TransportType.bike;
+            c.transport = TransportType.bike;
             this.$scope.child = c;
         }
 
         private setDefaultAttractors() {
-            let a = new Attractor(AttractorType.school, 80);
-            let b = new Attractor(AttractorType.shop | AttractorType.toy, 60);
-            this.$scope.attractors = [a, b];
+            this.attractors = [];
+            for (var key in this.attractorTypes) {
+                if (this.attractorTypes.hasOwnProperty(key)) {
+                    let a = new Attractor(this.attractorTypes[key], 0);
+                    this.attractors.push(a);
+                }
+            }
+        }
+
+        private setDefaultPois() {
+            let p = new PointOfInterest();
+            p.name = 'Jan de Vries';
+            p.address = { zip: '1111AA', houseNumber: 1, street: 'Kerkstraat', houseNumberExtension: null, city: 'Ons Dorp' };
+            p.location = { type: 'Point', coordinates: [4.888, 51.977] };
+            p.type = PointOfInterestType.family;
+            this.pois = [p];
         }
 
         private setGenders() {
-            this.genders = [];
-            this.genders.push('Jongen');
-            this.genders.push('Meisje');
+            this.genders = this.getKeysAndValuesOfEnum(PersonGender);
         }
 
         private setTransportOptions() {
-            this.transportoptions = [];
-            this.transportoptions.push('Lopend');
-            this.transportoptions.push('Fiets');
-            this.transportoptions.push('Step');
+            this.transportoptions = this.getKeysAndValuesOfEnum(TransportType);
         }
 
         private setPoiTypes() {
-            this.poitypes = [];
-            this.poitypes.push('Kind');
-            this.poitypes.push('Ouder');
-            this.poitypes.push('Broer');
-            this.poitypes.push('Zus');
-            this.poitypes.push('Verzorger');
-            this.poitypes.push('Familielid');
-            this.poitypes.push('Vriend');
+            this.poitypes = this.getKeysAndValuesOfEnum(PointOfInterestType);
+        }
+
+        private setAttractorTypes() {
+            this.attractorTypes = this.getKeysAndValuesOfEnum(AttractorType);
         }
 
         private openCalendar(e: Event) {
@@ -175,5 +244,20 @@ module hmf {
 
             this.isOpen = true;
         };
+
+        private getKeysAndValuesOfEnum(e: any): { [key: string]: any } {
+            let result = {};
+            let keys = Object.keys(e)
+                .filter(v => isNaN(parseInt(v, 10)));
+            let vals = Object.keys(e)
+                .map(v => parseInt(v, 10))
+                .filter(v => !isNaN(v));
+            if (keys.length === vals.length) {
+                keys.forEach((k, index) => {
+                    result[k] = vals[index];
+                });
+            }
+            return result;
+        }
     }
 }

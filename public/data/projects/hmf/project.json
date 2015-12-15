@@ -34,154 +34,223 @@
             "expertMode": true
         }
     },
-    "dashboards": [{
-        "id": "hmf",
-        "name": "HMF",
-        "editMode": false,
-        "showMap": true,
-        "showTimeline": true,
-        "showLeftmenu": true,
-        "showLegend": false,
-        "showRightmenu": false,
-        "showBackgroundImage": false,
-        "widgets": [{
-            "id": "9893e455-847f-4e76-a2fd-765ebd3b91ea",
-            "directive": "hmfwidget",
-            "elementId": "widget-9893e455-847f-4e76-a2fd-765ebd3b91ea",
-            "enabled": true,
-            "style": "default",
-            "left": "0px",
-            "top": "10px",
-            "width": "500px",
-            "height": "100%",
-            "data": {}
-        }],
-        "mobile": true
-    }],
+    "dashboards": [
+        {
+            "id": "hmf",
+            "name": "HMF",
+            "editMode": false,
+            "showMap": true,
+            "showTimeline": true,
+            "showLeftmenu": true,
+            "showLegend": false,
+            "showRightmenu": false,
+            "showBackgroundImage": false,
+            "widgets": [
+                {
+                    "id": "9893e455-847f-4e76-a2fd-765ebd3b91ea",
+                    "directive": "hmfwidget",
+                    "elementId": "widget-9893e455-847f-4e76-a2fd-765ebd3b91ea",
+                    "enabled": true,
+                    "style": "default",
+                    "left": "0px",
+                    "top": "10px",
+                    "width": "500px",
+                    "height": "100%",
+                    "data": {}
+                }
+            ],
+            "mobile": true
+        }
+    ],
     "expertMode": 3,
     "baselayers": {},
     "propertyTypeData": {},
-    "groups": [{
-        "id": "mobiliteit",
-        "title": "Mobiliteit",
-        "description": "Mobiliteit lagen",
-        "clustering": false,
-        "oneLayerActive": false,
-        "layers": [{
-            "id": "accessibility",
-            "title": "Accessibility",
-            "description": "Bekijk afstanden vanaf een bepaald punt.",
-            "type": "geojson",
-            "renderType": "geojson",
-            "heatmapItems": null,
-            "url": "http://134.221.20.206:8080/otp/routers/default/isochrone?=undefined&arriveBy=false&fromPlace=52.075287%2C4.308183&date=10-28-2015&time=23%3A50&mode=WALK&walkSpeed=2.6221864302399998&bikeSpeed=7.99704724104&precisionMeters=100&&cutoffSec=120&cutoffSec=300&cutoffSec=600&cutoffSec=1200",
-            "typeUrl": "data/resourcetypes/mobiliteit.json",
-            "opacity": "100",
-            "defaultFeatureType": "Mobiliteit",
-            "gui": {}
-        }, {
-            "id": "tripplanner",
-            "title": "Routeplanner",
-            "description": "Plan routes.",
-            "type": "geojson",
-            "renderType": "geojson",
-            "heatmapItems": null,
-            "url": "http://134.221.20.206:8080/otp/routers/default/plan?arriveBy=false&fromPlace=52.081154%2C4.3243597&toPlace=52.096403%2C4.360335&date=07-07-2015&time=11%3A00&mode=BICYCLE&bikeSpeed=8.0&maxTimeSec=3600300&precisionMeters=100&zDataType=TIME&coordinateOrigin=52.076403%2C4.369335",
-            "typeUrl": "data/resourcetypes/mobiliteit.json",
-            "defaultFeatureType": "Route",
-            "gui": {}
-        }]
-    }, {
-        "id": "denhaag",
-        "title": "Den Haag",
-        "description": "Den Haag lagen",
-        "clustering": false,
-        "oneLayerActive": false,
-        "layers": [{
-            "id": "wegwerkzaamheden",
-            "title": "Wegwerkzaamheden",
-            "type": "esrijson",
-            "renderType": "esrijson",
-            "heatmapItems": null,
-            "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/02_WegWerkzaamheden/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
-            "typeUrl": "data/resourcetypes/denhaag.json",
-            "defaultFeatureType": "wegwerkzaamheden",
-            "gui": {}
-        }, {
-            "id": "parkeren",
-            "title": "Parkeren",
-            "type": "esrijson",
-            "renderType": "esrijson",
-            "heatmapItems": null,
-            "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/02_Parkeren/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
-            "typeUrl": "data/resourcetypes/denhaag.json",
-            "defaultFeatureType": "parkeerplaats",
-            "gui": {}
-        }, {
-            "id": "zwembaden",
-            "title": "Zwembaden",
-            "type": "esrijson",
-            "renderType": "esrijson",
-            "heatmapItems": null,
-            "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/01_Zwembaden/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
-            "typeUrl": "data/resourcetypes/denhaag.json",
-            "defaultFeatureType": "zwembad",
-            "gui": {}
-        }, {
-            "id": "politiebureaus",
-            "title": "Politiebureaus",
-            "type": "esrijson",
-            "renderType": "esrijson",
-            "heatmapItems": null,
-            "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/09_Veiligheid/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
-            "typeUrl": "data/resourcetypes/denhaag.json",
-            "defaultFeatureType": "politiebureau",
-            "gui": {}
-        }, {
-            "id": "shops",
-            "title": "Speelgoedwinkels",
-            "description": "Speelgoedwinkels in Den Haag.",
-            "type": "geojson",
-            "renderType": "geojson",
-            "heatmapItems": null,
-            "url": "data/projects/hmf/shops.json",
-            "typeUrl": "data/resourcetypes/denhaag.json",
-            "defaultFeatureType": "shop",
-            "gui": {}
-        }]
-    }, {
-        "id": "socialmedia",
-        "title": "Social Media",
-        "description": "Social Media",
-        "clustering": true,
-        "oneLayerActive": false,
-        "layers": [{
-            "id": "buurten",
-            "title": "buurten",
-            "type": "geojson",
-            "renderType": "geojson",
-            "heatmapItems": null,
-            "url": "data/projects/hmf/buurten.json",
-            "typeUrl": "data/resourcetypes/rti.json",
-            "opacity": 25,
-            "defaultFeatureType": "buurten",
-            "gui": {}
-        }]
-    }, {
-        "id": "beveiliging",
-        "title": "Beveiliging",
-        "description": "Beveiliging",
-        "clustering": false,
-        "oneLayerActive": false,
-        "layers": [{
+    "groups": [
+        {
+            "title": "HMF",
+            "id": "hmf",
+            "description": "HMF",
+            "clustering": false,
+            "oneLayerActive": true,
+            "layers": [
+                {
+                    "id": "hmfheatmap",
+                    "title": "Heatmap",
+                    "description": "Heatmap voor vermist kind",
+                    "type": "grid",
+                    "renderType": "gridlayer",
+                    "url": "data/projects/hmf/hmfheatmap.asc",
+                    "typeUrl": "data/resourcetypes/hmfheatmaptypes.json",
+                    "opacity": 45,
+                    "dataSourceParameters": {
+                        "propertyName": "h",
+                        "gridType": "esri",
+                        "projection": "WGS84",
+                        "contourLevels": [
+                            0,
+                            20,
+                            40,
+                            60,
+                            80,
+                            100
+                        ],
+                        "minColor": "#00ff00",
+                        "maxColor": "#ff0000",
+                        "skipLines": 5,
+                        "columns": 320,
+                        "rows": 240,
+                        "deltaLon": 0.0014584288488676631,
+                        "deltaLat": -0.0008877224387042511,
+                        "noDataValue": -1,
+                        "maxThreshold": 100,
+                        "minThreshold": -1
+                    },
+                    "defaultFeatureType": "heat",
+                    "defaultLegendProperty": "h",
+                    "isDynamic": true,
+                    "gui": {},
+                    "tags": []
+                }
+            ]
+        },
+        {
+            "id": "mobiliteit",
+            "title": "Mobiliteit",
+            "description": "Mobiliteit lagen",
+            "clustering": false,
+            "oneLayerActive": false,
+            "layers": [
+                {
+                    "id": "accessibility",
+                    "title": "Accessibility",
+                    "description": "Bekijk afstanden vanaf een bepaald punt.",
+                    "type": "geojson",
+                    "renderType": "geojson",
+                    "heatmapItems": null,
+                    "url": "http://134.221.20.206:8080/otp/routers/default/isochrone?=undefined&arriveBy=false&fromPlace=52.075287%2C4.308183&date=10-28-2015&time=23%3A50&mode=WALK&walkSpeed=2.6221864302399998&bikeSpeed=7.99704724104&precisionMeters=100&&cutoffSec=120&cutoffSec=300&cutoffSec=600&cutoffSec=1200",
+                    "typeUrl": "data/resourcetypes/mobiliteit.json",
+                    "opacity": "100",
+                    "defaultFeatureType": "Mobiliteit",
+                    "gui": {}
+                },
+                {
+                    "id": "tripplanner",
+                    "title": "Routeplanner",
+                    "description": "Plan routes.",
+                    "type": "geojson",
+                    "renderType": "geojson",
+                    "heatmapItems": null,
+                    "url": "http://134.221.20.206:8080/otp/routers/default/plan?arriveBy=false&fromPlace=52.081154%2C4.3243597&toPlace=52.096403%2C4.360335&date=07-07-2015&time=11%3A00&mode=BICYCLE&bikeSpeed=8.0&maxTimeSec=3600300&precisionMeters=100&zDataType=TIME&coordinateOrigin=52.076403%2C4.369335",
+                    "typeUrl": "data/resourcetypes/mobiliteit.json",
+                    "defaultFeatureType": "Route",
+                    "gui": {}
+                }
+            ]
+        },
+        {
+            "id": "denhaag",
+            "title": "Den Haag",
+            "description": "Den Haag lagen",
+            "clustering": false,
+            "oneLayerActive": false,
+            "layers": [
+                {
+                    "id": "wegwerkzaamheden",
+                    "title": "Wegwerkzaamheden",
+                    "type": "esrijson",
+                    "renderType": "esrijson",
+                    "heatmapItems": null,
+                    "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/02_WegWerkzaamheden/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
+                    "typeUrl": "data/resourcetypes/denhaag.json",
+                    "defaultFeatureType": "wegwerkzaamheden",
+                    "gui": {}
+                },
+                {
+                    "id": "parkeren",
+                    "title": "Parkeren",
+                    "type": "esrijson",
+                    "renderType": "esrijson",
+                    "heatmapItems": null,
+                    "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/02_Parkeren/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
+                    "typeUrl": "data/resourcetypes/denhaag.json",
+                    "defaultFeatureType": "parkeerplaats",
+                    "gui": {}
+                },
+                {
+                    "id": "zwembaden",
+                    "title": "Zwembaden",
+                    "type": "esrijson",
+                    "renderType": "esrijson",
+                    "heatmapItems": null,
+                    "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/01_Zwembaden/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
+                    "typeUrl": "data/resourcetypes/denhaag.json",
+                    "defaultFeatureType": "zwembad",
+                    "gui": {}
+                },
+                {
+                    "id": "politiebureaus",
+                    "title": "Politiebureaus",
+                    "type": "esrijson",
+                    "renderType": "esrijson",
+                    "heatmapItems": null,
+                    "url": "http://www.denhaag.nl/ArcGIS/rest/services/Internet/09_Veiligheid/MapServer/0/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=4326",
+                    "typeUrl": "data/resourcetypes/denhaag.json",
+                    "defaultFeatureType": "politiebureau",
+                    "gui": {}
+                },
+                {
+                    "id": "shops",
+                    "title": "Speelgoedwinkels",
+                    "description": "Speelgoedwinkels in Den Haag.",
+                    "type": "geojson",
+                    "renderType": "geojson",
+                    "heatmapItems": null,
+                    "url": "data/projects/hmf/shops.json",
+                    "typeUrl": "data/resourcetypes/denhaag.json",
+                    "defaultFeatureType": "shop",
+                    "gui": {}
+                }
+            ]
+        },
+        {
+            "id": "socialmedia",
+            "title": "Social Media",
+            "description": "Social Media",
+            "clustering": true,
+            "oneLayerActive": false,
+            "layers": [
+                {
+                    "id": "buurten",
+                    "title": "buurten",
+                    "type": "geojson",
+                    "renderType": "geojson",
+                    "heatmapItems": null,
+                    "url": "data/projects/hmf/buurten.json",
+                    "typeUrl": "data/resourcetypes/rti.json",
+                    "opacity": 25,
+                    "defaultFeatureType": "buurten",
+                    "gui": {}
+                }
+            ]
+        },
+        {
             "id": "beveiliging",
-            "title": "beveiliging",
-            "type": "geojson",
-            "renderType": "geojson",
-            "heatmapItems": null,
-            "url": "data/projects/hmf/beveiliging.json",
-            "typeUrl": "data/resourcetypes/rti.json",
-            "gui": {}
-        }]
-    }]
+            "title": "Beveiliging",
+            "description": "Beveiliging",
+            "clustering": false,
+            "oneLayerActive": false,
+            "layers": [
+                {
+                    "id": "beveiliging",
+                    "title": "beveiliging",
+                    "type": "geojson",
+                    "renderType": "geojson",
+                    "heatmapItems": null,
+                    "url": "data/projects/hmf/beveiliging.json",
+                    "typeUrl": "data/resourcetypes/rti.json",
+                    "gui": {}
+                }
+            ]
+        }
+    ]
 }

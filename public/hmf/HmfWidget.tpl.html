@@ -27,7 +27,7 @@
 					</div>
 					<div class="col-md-6 no-padding-left">
 						<label class="control-label hmf-label-large" for="hmf-gender">Geslacht</label>
-						<select id="hmf-gender" ng-model="child.gender" class="hmf-label-small" ng-options="vm.genders.indexOf(g) as g for g in vm.genders">
+						<select id="hmf-gender" ng-model="child.gender" class="hmf-label-small" ng-options="value as key for (key, value) in vm.genders">
 						</select>
 					</div>
 				</div>
@@ -48,7 +48,7 @@
 					</div>
 					<div class="col-md-6 no-padding-left">
 						<label class="control-label hmf-label-large" for="hmf-transport">Vervoermiddel</label>
-						<select id="hmf-transport" ng-model="child.transport" class="hmf-label-small" ng-options="vm.transportoptions.indexOf(v) as v for v in vm.transportoptions">
+						<select id="hmf-transport" ng-model="child.transport" class="hmf-label-small" ng-options="value as key for (key, value) in vm.transportoptions">
 						</select>
 					</div>
 				</div>
@@ -62,29 +62,50 @@
 			</div>
 			<div class="card-item card-item-hmf">
 				<div class="row">
-					<h4 class="col-md-8">Attractoren</h4>
+					<h4 class="col-md-8">Interesses</h4>
 					<div class="col-md-4">
 						<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;" ng-click="vm.saveAttractors()">Update</button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6 control-label hmf-label-small">Type</div>
-					<div class="col-md-6 control-label hmf-label-small">Aantrekkelijkheid</div>
-				</div>
-				<div class="row" ng-repeat="a in attractors track by $index">
-					<div class="col-md-6 control-label" style="padding-left:15px;">{{a.attractorType}}</div>
-					<div class="col-md-5">
-						<input class="ui-slider" type="range" min="0" max="100" ng-model="a.attractiveness" id="hmf-attractor-{{$index}}" style="display:inline-block"
-						/>
+				<!--<div class="table hmf-border">
+					<div class="row" style="margin-top:4px;">
+						<div class="col-md-12">
+							<label class="control-label hmf-label-large" for="hmf-attr-type">Type</label>
+							<select id="hmf-attr-type" ng-model="attractor.attractorType" class="hmf-label-large" ng-options="value as key for (key, value) in vm.attractorTypes">
+							</select>
+						</div>
 					</div>
-					<div class="col-md-1">{{a.attractiveness}}</div>
+					<div class="row">
+						<div class="col-md-9">
+							<label class="control-label hmf-label-large" for="hmf-attr-attr">Aantrekkelijkheid (0-100)</label>
+							<input type="number" ng-model="attractor.attractiveness" id="hmf-attr-attr" class="hmf-label-large" />
+						</div>
+						<div class="col-md-3">
+							<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;margin-top:0px" ng-click="vm.addAttractor()">Voeg toe</button>
+						</div>
+					</div>
+				</div>-->
+				<div class="table">
+					<div class="row" style="margin-bottom:8px">
+						<div class="col-md-6 control-label hmf-label-small">Type</div>
+						<div class="col-md-6 control-label hmf-label-small">Aantrekkelijkheid</div>
+					</div>
+					<div class="row" ng-repeat="a in vm.attractors track by $index">
+						<div class="col-md-4 control-label" style="padding-left:15px;">{{vm.getAttractorName(a.attractorType)}}</div>
+						<div class="col-md-6">
+							<input class="ui-slider" type="range" min="0" max="100" ng-model="a.attractiveness" id="hmf-attractor-{{$index}}" style="display:inline-block"
+							/>
+						</div>
+						<div class="col-md-2">{{a.attractiveness}}</div>
+					</div>
 				</div>
 			</div>
 			<div class="card-item card-item-hmf">
 				<div class="row">
 					<h4 class="col-md-12">POI's</h4>
 				</div>
-				<div class="table hmf-border">
+				
+				<!--<div class="table hmf-border">
 					<div class="row" style="margin-top:4px;">
 						<div class="col-md-10">
 							<label class="control-label hmf-label-large" for="hmf-poi-name">Naam</label>
@@ -96,10 +117,11 @@
 					</div>
 					<div class="row">
 						<div class="col-md-10">
-							<label class="control-label hmf-label-large" for="hmf-poi-zip" >Postcode + Nr.</label>
+							<label class="control-label hmf-label-large" for="hmf-poi-zip">Postcode + Nr.</label>
 							<input type="text" ng-model="poi.address.zip" id="hmf-poi-zip" placeholder="1234AB" class="hmf-label-small" />
 							<input type="number" ng-model="poi.address.houseNumber" placeholder="100" id="hmf-poi-nr" class="hmf-label-xsmall" />
-							<input type="text" ng-model="poi.address.houseNumberExtension" placeholder="a" id="hmf-poi-nrext" class="hmf-label-xsmall" />
+							<input type="text" ng-model="poi.address.houseNumberExtension" placeholder="a" id="hmf-poi-nrext" class="hmf-label-xsmall"
+							/>
 						</div>
 					</div>
 					<div class="row">
@@ -117,23 +139,34 @@
 					<div class="row">
 						<div class="col-md-10">
 							<label class="control-label hmf-label-large" for="hmf-poi-type">Type POI</label>
-							<select id="hmf-poi-type" ng-model="poi.type" class="hmf-label-large" ng-options="vm.poitypes.indexOf(p) as p for p in vm.poitypes">
+							<select id="hmf-poi-type" ng-model="poi.type" class="hmf-label-large" ng-options="value as key for (key, value) in vm.poitypes">
 							</select>
 						</div>
+						<div class="col-md-2">
+							<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;margin-top:0px" ng-click="vm.addPoi()">Voeg toe</button>
+						</div>
 					</div>
-				</div>
+				</div>-->
 				<div class="table">
+					<div class="row" style="margin-top:4px;">
+						<div class="col-md-6">
+							<label class="control-label hmf-label-large" for="hmf-poi-name">Voeg POI toe</label>
+							<button id="hmf-poi-name" class="fa fa-plus leftpanel-header-button" ng-click="vm.openAddPoiModal()" style="font-size:20px;float:none;" />
+						</div>
+					</div>
 					<div class="row" ng-if="vm.pois.length > 0" style="margin-top:10px">
-						<div class="col-md-3 control-label">Type</div>
-						<div class="col-md-3 control-label">Naam</div>
-						<div class="col-md-6 control-label">Adres</div>
+						<div class="col-md-3 control-label no-padding-right">Type</div>
+						<div class="col-md-2 control-label no-padding-both">Naam</div>
+						<div class="col-md-6 control-label no-padding-left">Adres</div>
 					</div>
 					<div class="row" ng-repeat="poi in vm.pois track by $index" style="margin-top:10px">
-						<div class="col-md-3" style="padding-left:15px;margin-left:5px;">{{vm.poitypes[poi.type]}}</div>
-						<div class="col-md-3 hmf-label-medium">{{poi.name}}</div>
-						<div class="col-md-6">{{poi.address.street}} {{poi.address.houseNumber}}{{poi.address.houseNumberExtension}}, {{poi.address.city}}
+						<div class="col-md-3 no-padding-right" style="padding-left:15px;margin-left:5px;">{{Object.keys(vm.poitypes).pop()}}</div>
+						<div class="col-md-2 no-padding-both">{{poi.name}}</div>
+						<div class="col-md-4 no-padding-both">{{poi.address.street}} {{poi.address.houseNumber}}{{poi.address.houseNumberExtension}},
+							<br>{{poi.address.city}}</div>
+						<div class="col-md-2 no-padding-left">
 							<button class="fa fa-pencil leftpanel-header-button" ng-click="vm.editPoi(poi)" />
-							<button class="fa fa-trash-o leftpanel-header-button" ng-click="vm.removePoi(poi)" />
+							<button class="fa fa-trash-o leftpanel-header-button no-padding-both" ng-click="vm.removePoi(poi)" />
 							<button class="fa fa-search leftpanel-header-button" ng-click="vm.zoomToPoi(poi)" />
 						</div>
 					</div>
@@ -141,8 +174,27 @@
 			</div>
 		</div>
 		<div class="tab-pane" id="hmf-2">
-			<div>
-				<p>Tab 2</p>
+			<div class="card-item card-item-hmf">
+				<div class="row">
+					<h4 class="col-md-8">Aantrekkelijke locaties</h4>
+				</div>
+				<div class="row">
+					<div class="col-md-6 control-label hmf-label-small">Naam</div>
+					<div class="col-md-6 control-label hmf-label-small">Aantrekkelijkheid</div>
+				</div>
+				<div class="row" ng-repeat="a in vm.attractiveObjects track by $index">
+					<div class="col-md-4 control-label" style="padding-left:15px;">{{a.attractorType}}</div>
+					<div class="col-md-4">{{a.attractiveness}}</div>
+					<div class="col-md-3">
+						<label class="hmf-label-small" for="hmf-ao-{{$index}}">Visited:</label>
+						<input type="checkbox" ng-model="a.visited" id="hmf-ao-{{$index}}" />
+					</div>
+					<!--<button class="fa fa-pencil leftpanel-header-button" ng-click="vm.editAttractor(a)" />-->
+					<!--<button class="fa fa-trash-o leftpanel-header-button no-padding-both" ng-click="vm.removeAttractor(a)" />-->
+					<div class="col-md-1">
+						<button class="fa fa-search leftpanel-header-button" ng-click="vm.zoomToAttractor(a)" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

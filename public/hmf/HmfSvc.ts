@@ -49,7 +49,7 @@ module hmf {
     }
 
     export class Interest {
-        constructor(private interestType: InterestType, public attractiveness: number) {
+        constructor(public interestType: InterestType, public attractiveness: number) {
         }
     }
 
@@ -117,13 +117,32 @@ module hmf {
             });
 
             this.messageBusService.subscribe('hmf', (title, data: any) => {
-                if (title === 'child') { this.updateChild(data)}
+                switch (title) {
+                    case 'child':
+                        this.updateChild(data);
+                        return;
+                    case 'pois':
+                        this.updatePOIs(data);
+                        break;
+                }
             });
 
         }
-        
+
         private updateChild(child: Child) {
+            if (!child.hasOwnProperty('age') || !child.hasOwnProperty('gender')) return;
+            // Set the interests for the child category
+            if (child.age < 10) {
+                this.interests = Interests.category1;
+            } else {
+                this.interests = Interests.category2;
+            }
+            // Publish the interests
             this.messageBusService.publish('hmf', 'interests', this.interests);
+        }
+
+        private updatePOIs(pois: PointOfInterest[]) {
+            return;
         }
 
         /** Load all available layers. */

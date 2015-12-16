@@ -76,9 +76,17 @@ module hmf {
             });
 
             this.$messageBus.subscribe('hmf', (title, data: any) => {
-                if (title === 'attractors') {
-                    this.setAttractors(data);
-                    return;
+                switch (title) {
+                    case 'child':
+                        return;
+                    case 'pois':
+                        break;
+                    case 'attractors':
+                        this.setAttractors(data);
+                        break;
+                    case 'interests':
+                        this.setInterests(data);
+                        break;
                 }
             });
         }
@@ -101,14 +109,15 @@ module hmf {
         }
 
         /** Send the updated child information to the hmf service */
-        private saveChild() {
-            // this.$scope.child;
+        private updateChild() {
+            let c = JSON.parse(JSON.stringify(this.$scope.child));
+            this.$messageBus.publish('hmf', 'child', c);
             return;
         }
 
         /** Send the updated interests to the hmf service */
-        private saveInterests() {
-            // this.$scope.interests;
+        private updateInterests() {
+           let i = JSON.parse(JSON.stringify(this.interests));
             return;
         }
 
@@ -209,7 +218,7 @@ module hmf {
             c.age = 8;
             c.gender = PersonGender.male;
             c.time = new Date();
-            c.location = '';
+            c.location = { type: 'point', coordinates: [0, 0] };
             c.adhd = false;
             c.transport = TransportType.bike;
             this.$scope.child = c;
@@ -223,6 +232,22 @@ module hmf {
                     this.interests.push(a);
                 }
             }
+        }
+
+        private setInterests(interests: Interest[]) {
+            interests.forEach((interest) => {
+                let interestNr = -1;
+                this.interests.some((i, index) => {
+                    if (i.interestType === interest.interestType) {
+                        interestNr = index;
+                        return true;
+                    }
+                    return false;
+                });
+                if (interestNr > -1) {
+                    this.interests[interestNr] = JSON.parse(JSON.stringify(interest));
+                }
+            });
         }
 
         private setDefaultPois() {

@@ -64,24 +64,24 @@
 				<div class="row">
 					<h4 class="col-md-8">Interesses</h4>
 					<div class="col-md-4">
-						<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;" ng-click="vm.saveAttractors()">Update</button>
+						<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;" ng-click="vm.saveInterests()">Update</button>
 					</div>
 				</div>
 				<!--<div class="table hmf-border">
 					<div class="row" style="margin-top:4px;">
 						<div class="col-md-12">
 							<label class="control-label hmf-label-large" for="hmf-attr-type">Type</label>
-							<select id="hmf-attr-type" ng-model="attractor.attractorType" class="hmf-label-large" ng-options="value as key for (key, value) in vm.attractorTypes">
+							<select id="hmf-attr-type" ng-model="interest.interestType" class="hmf-label-large" ng-options="value as key for (key, value) in vm.interestTypes">
 							</select>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-9">
 							<label class="control-label hmf-label-large" for="hmf-attr-attr">Aantrekkelijkheid (0-100)</label>
-							<input type="number" ng-model="attractor.attractiveness" id="hmf-attr-attr" class="hmf-label-large" />
+							<input type="number" ng-model="interest.attractiveness" id="hmf-attr-attr" class="hmf-label-large" />
 						</div>
 						<div class="col-md-3">
-							<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;margin-top:0px" ng-click="vm.addAttractor()">Voeg toe</button>
+							<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;margin-top:0px" ng-click="vm.addInterest()">Voeg toe</button>
 						</div>
 					</div>
 				</div>-->
@@ -90,10 +90,10 @@
 						<div class="col-md-6 control-label hmf-label-small">Type</div>
 						<div class="col-md-6 control-label hmf-label-small">Aantrekkelijkheid</div>
 					</div>
-					<div class="row" ng-repeat="a in vm.attractors track by $index">
-						<div class="col-md-4 control-label" style="padding-left:15px;">{{vm.getAttractorName(a.attractorType)}}</div>
+					<div class="row" ng-repeat="a in vm.interests track by $index">
+						<div class="col-md-4 control-label" style="padding-left:15px;">{{vm.getInterestName(a.interestType)}}</div>
 						<div class="col-md-6">
-							<input class="ui-slider" type="range" min="0" max="100" ng-model="a.attractiveness" id="hmf-attractor-{{$index}}" style="display:inline-block"
+							<input class="ui-slider" type="range" min="0" max="100" ng-model="a.attractiveness" id="hmf-interest-{{$index}}" style="display:inline-block"
 							/>
 						</div>
 						<div class="col-md-2">{{a.attractiveness}}</div>
@@ -179,19 +179,15 @@
 					<h4 class="col-md-8">Aantrekkelijke locaties</h4>
 				</div>
 				<div class="row">
-					<div class="col-md-6 control-label hmf-label-small">Naam</div>
-					<div class="col-md-6 control-label hmf-label-small">Aantrekkelijkheid</div>
+					<div class="col-md-8 control-label">Naam</div>
+					<div class="col-md-4 control-label">Aantrekkelijkheid</div>
 				</div>
-				<div class="row" ng-repeat="a in vm.attractiveObjects track by $index">
-					<div class="col-md-4 control-label" style="padding-left:15px;">{{a.attractorType}}</div>
-					<div class="col-md-4">{{a.attractiveness}}</div>
-					<div class="col-md-3">
+				<div class="row" ng-repeat="a in vm.attractors track by $index">
+					<div class="col-md-6 control-label" style="padding-left:15px;">{{a.name}}</div>
+					<div class="col-md-2 control-label" style="text-align:right">{{a.attractiveness}}</div>
+					<div class="col-md-4 pull-right">
 						<label class="hmf-label-small" for="hmf-ao-{{$index}}">Visited:</label>
 						<input type="checkbox" ng-model="a.visited" id="hmf-ao-{{$index}}" />
-					</div>
-					<!--<button class="fa fa-pencil leftpanel-header-button" ng-click="vm.editAttractor(a)" />-->
-					<!--<button class="fa fa-trash-o leftpanel-header-button no-padding-both" ng-click="vm.removeAttractor(a)" />-->
-					<div class="col-md-1">
 						<button class="fa fa-search leftpanel-header-button" ng-click="vm.zoomToAttractor(a)" />
 					</div>
 				</div>

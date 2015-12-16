@@ -5,7 +5,7 @@ module hmf {
 
     export class Child {
         name: string;
-        location: string;
+        location: csComp.Services.IGeoJsonGeometry;
         time: Date;
         adhd: boolean;
         age: number;
@@ -19,7 +19,7 @@ module hmf {
         minimized: boolean;
         child: Child;
         poi: PointOfInterest;
-        attractor: Attractor;
+        interest: Interest;
     }
 
     export class HmfWidgetCtrl {
@@ -29,9 +29,10 @@ module hmf {
 
         private genders: { [key: string]: any };
         private poitypes: { [key: string]: any };
-        private attractorTypes: { [key: string]: any };
+        private interestTypes: { [key: string]: any };
         private transportoptions: { [key: string]: any };
         private pois: PointOfInterest[];
+        private interests: Interest[];
         private attractors: Attractor[];
         private isOpen: boolean;
 
@@ -73,6 +74,13 @@ module hmf {
                         break;
                 }
             });
+
+            this.$messageBus.subscribe('hmf', (title, data: any) => {
+                if (title === 'attractors') {
+                    this.setAttractors(data);
+                    return;
+                }
+            });
         }
 
         private init() {
@@ -80,9 +88,9 @@ module hmf {
             this.setGenders();
             this.setTransportOptions();
             this.setDefaultChild();
-            this.setAttractorTypes();
-            this.resetAttractor();
-            this.setDefaultAttractors();
+            this.setInterestTypes();
+            this.resetInterest();
+            this.setDefaultInterests();
             this.setPoiTypes();
             this.resetPoi();
             this.setDefaultPois();
@@ -98,9 +106,9 @@ module hmf {
             return;
         }
 
-        /** Send the updated attractors to the hmf service */
-        private saveAttractors() {
-            // this.$scope.attractors;
+        /** Send the updated interests to the hmf service */
+        private saveInterests() {
+            // this.$scope.interests;
             return;
         }
 
@@ -129,6 +137,8 @@ module hmf {
         }
 
         private zoomToPoi(poi: PointOfInterest) {
+            var latlon = new L.LatLng(poi.location.coordinates[1], poi.location.coordinates[0]);
+            this.$mapService.zoomToLocation(latlon);
             return;
         }
 
@@ -159,35 +169,37 @@ module hmf {
             });
         }
 
-        private addAttractor() {
-            let a = JSON.parse(JSON.stringify(this.$scope.attractor)); //clone
-            this.attractors.push(a);
-            this.resetAttractor();
+        private addInterest() {
+            let a = JSON.parse(JSON.stringify(this.$scope.interest)); //clone
+            this.interests.push(a);
+            this.resetInterest();
             return;
         }
 
-        private resetAttractor() {
-            if (this.$scope.attractor) delete this.$scope.attractor;
-            this.$scope.attractor = new Attractor(AttractorType.unknown, 0);
+        private resetInterest() {
+            if (this.$scope.interest) delete this.$scope.interest;
+            this.$scope.interest = new Interest(InterestType.unknown, 0);
         }
 
-        private editAttractor(attr: Attractor) {
-            let a = JSON.parse(JSON.stringify(attr)); //clone
-            this.removeAttractor(attr);
-            this.$scope.attractor = a;
+        private editInterest(intr: Interest) {
+            let a = JSON.parse(JSON.stringify(intr)); //clone
+            this.removeInterest(intr);
+            this.$scope.interest = a;
         }
 
-        private removeAttractor(attr: Attractor) {
-            if (this.attractors.indexOf(attr) > -1) {
-                this.attractors.splice(this.attractors.indexOf(attr), 1);
+        private removeInterest(intr: Interest) {
+            if (this.interests.indexOf(intr) > -1) {
+                this.interests.splice(this.interests.indexOf(intr), 1);
             }
         }
 
-        private getAttractorName(type: number): string {
-            return AttractorType[type];
+        private getInterestName(type: number): string {
+            return InterestType[type];
         }
 
         private zoomToAttractor(attr: Attractor) {
+            var latlon = new L.LatLng(attr.location.coordinates[1], attr.location.coordinates[0]);
+            this.$mapService.zoomToLocation(latlon);
             return;
         }
 
@@ -203,12 +215,12 @@ module hmf {
             this.$scope.child = c;
         }
 
-        private setDefaultAttractors() {
-            this.attractors = [];
-            for (var key in this.attractorTypes) {
-                if (this.attractorTypes.hasOwnProperty(key)) {
-                    let a = new Attractor(this.attractorTypes[key], 0);
-                    this.attractors.push(a);
+        private setDefaultInterests() {
+            this.interests = [];
+            for (var key in this.interestTypes) {
+                if (this.interestTypes.hasOwnProperty(key)) {
+                    let a = new Interest(this.interestTypes[key], 0);
+                    this.interests.push(a);
                 }
             }
         }
@@ -234,8 +246,12 @@ module hmf {
             this.poitypes = this.getKeysAndValuesOfEnum(PointOfInterestType);
         }
 
-        private setAttractorTypes() {
-            this.attractorTypes = this.getKeysAndValuesOfEnum(AttractorType);
+        private setInterestTypes() {
+            this.interestTypes = this.getKeysAndValuesOfEnum(InterestType);
+        }
+
+        private setAttractors(attrs: Attractor[]) {
+            this.attractors = attrs;
         }
 
         private openCalendar(e: Event) {

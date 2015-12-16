@@ -29,16 +29,7 @@ module hmf {
         other
     }
 
-    export class PointOfInterest {
-        name: string;
-        description: string;
-        address: Address;
-        type: PointOfInterestType;
-        age: number;
-        location: csComp.Services.IGeoJsonGeometry;
-    }
-
-    export enum AttractorType {
+    export enum InterestType {
         unknown = 0,
         school = 1,
         park = 2,
@@ -49,21 +40,35 @@ module hmf {
         event = 64
     }
 
-    export class Attractor {
+    export class PointOfInterest {
+        name: string;
+        description: string;
         address: Address;
+        type: PointOfInterestType;
+        location: csComp.Services.IGeoJsonGeometry;
+    }
 
-        constructor(private attractorType: AttractorType, public attractiveness: number) {
+    export class Interest {
+        constructor(private interestType: InterestType, public attractiveness: number) {
         }
     }
 
-    export class Attractors {
-        static category1: Attractor[] = [
-            new Attractor(AttractorType.school, 80),
-            new Attractor(AttractorType.shop | AttractorType.toy, 60)
+    export class Attractor {
+        location: csComp.Services.IGeoJsonGeometry;
+        constructor(private name: string, private attractorType: InterestType, public attractiveness: number) {
+        }
+    }
+
+    export class Interests {
+        static category1: Interest[] = [
+            new Interest(InterestType.school, 80),
+            new Interest(InterestType.shop, 40),
+            new Interest(InterestType.toy, 60)
         ];
-        static category2: Attractor[] = [
-            new Attractor(AttractorType.school, 60),
-            new Attractor(AttractorType.shop | AttractorType.toy, 50)
+        static category2: Interest[] = [
+            new Interest(InterestType.school, 70),
+            new Interest(InterestType.shop, 40),
+            new Interest(InterestType.park, 90)
         ];
     }
 
@@ -75,7 +80,8 @@ module hmf {
 
     export class hmfSvc {
         private personsOfInterest: PointOfInterest[];
-        private attractors: csComp.Services.IFeature[] = [];
+        private attractors: Attractor[] = [];
+        private interests: Interest[] = [];
 
         static $inject = [
             '$rootScope',
@@ -107,8 +113,17 @@ module hmf {
             this.messageBusService.subscribe('layer', (title, layer: csComp.Services.ProjectLayer) => {
                 if (title !== 'activated') return;
                 this.loadFeatures(layer);
+                this.messageBusService.publish('hmf', 'attractors', this.attractors);
             });
 
+            this.messageBusService.subscribe('hmf', (title, data: any) => {
+                if (title === 'child') { this.updateChild(data)}
+            });
+
+        }
+        
+        private updateChild(child: Child) {
+            this.messageBusService.publish('hmf', 'interests', this.interests);
         }
 
         /** Load all available layers. */
@@ -125,7 +140,10 @@ module hmf {
         /** Load all features in a layer and turn the layer off. */
         private loadFeatures(layer: csComp.Services.ProjectLayer) {
             for (var key in layer.group.markers) {
-                this.attractors.push(layer.group.markers[key].feature);
+                let f: IFeature = layer.group.markers[key].feature;
+                let a: Attractor = new Attractor(f.properties['Name'] || 'Unknown', (InterestType.shop | InterestType.toy), Math.floor(Math.random() * 100));
+                a.location = f.geometry;
+                this.attractors.push(a);
             };
             //this.layerService.removeLayer(layer);
         }
@@ -143,7 +161,7 @@ module hmf {
         }
 
         /** A set of default attractor types, such as schools, parks, toy shops, etc. with a default attractiveness for this particular child. */
-        getAttractorTypes() {
+        getInterestTypes() {
             // Specify the logic to select a specific category.
             return Attractors.category1;
         }

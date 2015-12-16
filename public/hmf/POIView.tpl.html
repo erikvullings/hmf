@@ -19,13 +19,6 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <label class="control-label hmf-label-large" for="hmf-poi-zip">Straat en plaats</label>
-                <input type="text" placeholder="Straat" ng-model="vm.poi.address.street" id="hmf-poi-street" class="hmf-label-large" />
-                <input type="text" placeholder="Plaats" ng-model="vm.poi.address.city" id="hmf-poi-town" class="hmf-label-large" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <label class="control-label hmf-label-large" for="hmf-poi-street">Postcode en nr.</label>
                 <input type="text" ng-model="vm.poi.address.zip" id="hmf-poi-zip" placeholder="1234AB" class="hmf-label-small" />
                 <input type="number" ng-model="vm.poi.address.houseNumber" placeholder="100" id="hmf-poi-nr" class="hmf-label-xsmall" />
@@ -36,10 +29,20 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <label class="control-label hmf-label-large" for="hmf-poi-zip">Straat en plaats</label>
+                <input type="text" placeholder="Straat" ng-model="vm.poi.address.street" id="hmf-poi-street" class="hmf-label-large" />
+                <input type="text" placeholder="Plaats" ng-model="vm.poi.address.city" id="hmf-poi-town" class="hmf-label-large" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <label class="control-label hmf-label-large" for="hmf-poi-street">Locatie</label>
-                <input type="number" disabled placeholder="Lat" ng-model="vm.poi.location.coordinates[0]" id="hmf-poi-lat" class="hmf-label-large" />
-                <input type="number" disabled placeholder="Lon" ng-model="vm.poi.location.coordinates[1]" id="hmf-poi-lon" class="hmf-label-large" />
-                <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.selectLocation()" style="font-size:20px;float:none;" />
+                <input type="number" disabled placeholder="Lat" ng-model="vm.poi.location.coordinates[0]" id="hmf-poi-lat" class="hmf-label-large"
+                />
+                <input type="number" disabled placeholder="Lon" ng-model="vm.poi.location.coordinates[1]" id="hmf-poi-lon" class="hmf-label-large"
+                />
+                <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.selectLocation()" style="font-size:20px;float:none;"
+                />
             </div>
         </div>
     </div>

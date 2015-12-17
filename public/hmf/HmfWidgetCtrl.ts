@@ -174,7 +174,8 @@ module hmf {
             this.openPoiModal(poi);
         }
 
-        private selectLocationFunc = (e) => { this.selectLocation(e); };
+        private selectChildLocationFunc = (e) => { this.selectChildLocation(e); };
+        private selectPoiLocationFunc = (e) => { this.selectPoiLocation(e); };
 
         private openPoiModal(inPoi: PointOfInterest) {
             // if (this.$modal.getPromiseChain()) return; //returns null when no modal is opened 
@@ -191,7 +192,7 @@ module hmf {
             modalInstance.result.then((data: any) => {
                 if (data.selectLocation) {
                     this.editingPoi = data.poi;
-                    this.$mapService.map.on('click', this.selectLocationFunc);
+                    this.$mapService.map.on('click', this.selectPoiLocationFunc);
                 } else {
                     if (data.poi.hasOwnProperty('type') && data.poi.hasOwnProperty('name') && data.poi.hasOwnProperty('location')) {
                         this.pois.push(data.poi);
@@ -204,12 +205,26 @@ module hmf {
             });
         }
 
-        private selectLocation(e: any) {
+        private selectPoiLocation(e: any) {
             var ll: L.LatLng = e.latlng;
             if (!this.editingPoi.location) this.editingPoi.location = { type: 'Point', coordinates: [] };
             this.editingPoi.location.coordinates = [ll.lng, ll.lat];
-            this.$mapService.map.off('click', this.selectLocationFunc);
+            this.$mapService.map.off('click', this.selectPoiLocationFunc);
             this.openPoiModal(this.editingPoi);
+            return;
+        }
+
+        private setChildLocationPicker() {
+            this.$mapService.map.on('click', this.selectChildLocationFunc);
+        }
+
+        private selectChildLocation(e: any) {
+            var ll: L.LatLng = e.latlng;
+            if (!this.$scope.child.location) this.$scope.child.location = { type: 'Point', coordinates: [] };
+            this.$timeout(() => {
+                this.$scope.child.location.coordinates = [ll.lng, ll.lat];
+            }, 0);
+            this.$mapService.map.off('click', this.selectChildLocationFunc);
             return;
         }
 
@@ -243,6 +258,12 @@ module hmf {
 
         private zoomToAttractor(attr: Attractor) {
             var latlon = new L.LatLng(attr.location.coordinates[1], attr.location.coordinates[0]);
+            this.$mapService.zoomToLocation(latlon);
+            return;
+        }
+
+        private zoomToChild(c: Child) {
+            var latlon = new L.LatLng(c.location.coordinates[1], c.location.coordinates[0]);
             this.$mapService.zoomToLocation(latlon);
             return;
         }

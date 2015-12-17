@@ -37,19 +37,27 @@
 						<input type="number" ng-model="child.age" id="hmf-age" class="hmf-label-medium" />
 					</div>
 					<div class="col-md-6 no-padding-left">
-						<label class="control-label hmf-label-large" for="hmf-adhd">ADHD</label>
-						<input type="checkbox" ng-model="child.adhd" id="hmf-adhd" />
-					</div>
-				</div>
-				<div class="row ">
-					<div class="col-md-6 no-padding-right">
-						<label class="control-label hmf-label-small" for="hmf-location">Locatie</label>
-						<input type="text" ng-model="child.location" id="hmf-location" class="hmf-label-medium" />
-					</div>
-					<div class="col-md-6 no-padding-left">
 						<label class="control-label hmf-label-large" for="hmf-transport">Vervoermiddel</label>
 						<select id="hmf-transport" ng-model="child.transport" class="hmf-label-small" ng-options="value as key for (key, value) in vm.transportoptions">
 						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 no-padding-right">
+						<label class="control-label hmf-label-small" for="hmf-adhd">ADHD</label>
+						<input type="checkbox" ng-model="child.adhd" id="hmf-adhd" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 no-padding-right">
+						<label class="control-label hmf-label-small" for="hmf-location">Locatie</label>
+						<div id="hmf-location" style="display:inline-block">{{child.location.coordinates[1].toFixed(5)}}, {{child.location.coordinates[0].toFixed(5)}}</div>
+						<button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.setChildLocationPicker()" style="font-size:20px;float:none;"
+						popover="Select a location on the map. This window will disappear, and appear again when you click on the map to select the location."
+						popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
+						<button class="fa fa-search leftpanel-header-button" ng-click="vm.zoomToChild(child)" style="font-size:20px;float:none;"
+						popover="Zoom to the location on the map." popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true"
+						/>
 					</div>
 				</div>
 				<div class="row">

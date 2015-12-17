@@ -33,7 +33,7 @@ module hmf {
          * Create a new POI
          */
         save() {
-            this.$modalInstance.close(this.poi);
+            this.$modalInstance.close({poi: this.poi, selectLocation: false});
         }
 
         cancel() {
@@ -73,6 +73,7 @@ module hmf {
         }
 
         selectLocation() {
+            this.$modalInstance.close({poi: this.poi, selectLocation: true});
         }
     }
 } 

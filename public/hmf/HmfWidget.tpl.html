@@ -102,9 +102,12 @@
 			</div>
 			<div class="card-item card-item-hmf">
 				<div class="row">
-					<h4 class="col-md-12">POI's</h4>
+					<h4 class="col-md-8">POI's</h4>
+					<div class="col-md-4">
+						<button class="btn btn-primary rightpanel-button" style="float:right;margin:4px;padding:4px;" ng-click="vm.updatePois()">Update</button>
+					</div>
 				</div>
-				
+
 				<!--<div class="table hmf-border">
 					<div class="row" style="margin-top:4px;">
 						<div class="col-md-10">
@@ -151,7 +154,8 @@
 					<div class="row" style="margin-top:4px;">
 						<div class="col-md-6">
 							<label class="control-label hmf-label-large" for="hmf-poi-name">Voeg POI toe</label>
-							<button id="hmf-poi-name" class="fa fa-plus leftpanel-header-button" ng-click="vm.openAddPoiModal()" style="font-size:20px;float:none;" />
+							<button id="hmf-poi-name" class="fa fa-plus leftpanel-header-button" ng-click="vm.openAddPoiModal()" style="font-size:20px;float:none;"
+							/>
 						</div>
 					</div>
 					<div class="row" ng-if="vm.pois.length > 0" style="margin-top:10px">
@@ -160,7 +164,7 @@
 						<div class="col-md-6 control-label no-padding-left">Adres</div>
 					</div>
 					<div class="row" ng-repeat="poi in vm.pois track by $index" style="margin-top:10px">
-						<div class="col-md-3 no-padding-right" style="padding-left:15px;margin-left:5px;">{{Object.keys(vm.poitypes).pop()}}</div>
+						<div class="col-md-3 no-padding-right" style="padding-left:15px;margin-left:5px;">{{vm.poinames[poi.type]}}</div>
 						<div class="col-md-2 no-padding-both">{{poi.name}}</div>
 						<div class="col-md-4 no-padding-both">{{poi.address.street}} {{poi.address.houseNumber}}{{poi.address.houseNumberExtension}},
 							<br>{{poi.address.city}}</div>

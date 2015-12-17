@@ -24,7 +24,8 @@
                 <input type="number" ng-model="vm.poi.address.houseNumber" placeholder="100" id="hmf-poi-nr" class="hmf-label-xsmall" />
                 <input type="text" ng-model="vm.poi.address.houseNumberExtension" placeholder="a" id="hmf-poi-nrext" class="hmf-label-xsmall"
                 />
-                <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.findZip()" style="font-size:20px;float:none;" />
+                <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.findZip()" style="font-size:20px;float:none;" popover="Enter a zipcode and housenumber to search the coordinates of the address in the (Dutch) BAG-database."
+                popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
             </div>
         </div>
         <div class="row">
@@ -42,7 +43,8 @@
                 <input type="number" disabled placeholder="Lon" ng-model="vm.poi.location.coordinates[1]" id="hmf-poi-lon" class="hmf-label-large"
                 />
                 <button class="fa fa-map-marker leftpanel-header-button" ng-click="vm.selectLocation()" style="font-size:20px;float:none;"
-                />
+                popover="Select a location on the map. This window will disappear, and appear again when you click on the map to select the location."
+                popover-placement="bottom" popover-trigger="mouseenter" popover-append-to-body="true" />
             </div>
         </div>
     </div>

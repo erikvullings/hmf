@@ -28,6 +28,7 @@ module hmf {
         private parentWidget: JQuery;
 
         private genders: { [key: string]: any };
+        private poinames: string[];
         private poitypes: { [key: string]: any };
         private interestTypes: { [key: string]: any };
         private transportoptions: { [key: string]: any };
@@ -35,6 +36,8 @@ module hmf {
         private interests: Interest[];
         private attractors: Attractor[];
         private isOpen: boolean;
+        private mapClickHandle: any;
+        private editingPoi: PointOfInterest;
 
         public static $inject = [
             '$scope',
@@ -78,7 +81,7 @@ module hmf {
             this.$messageBus.subscribe('hmf', (title, data: any) => {
                 switch (title) {
                     case 'child':
-                        return;
+                        break;
                     case 'pois':
                         break;
                     case 'attractors':
@@ -86,6 +89,9 @@ module hmf {
                         break;
                     case 'interests':
                         this.setInterests(data);
+                        break;
+                    case 'addpoi':
+                        this.setPoiFromActionService(data);
                         break;
                 }
             });
@@ -112,16 +118,22 @@ module hmf {
         private updateChild() {
             let c = JSON.parse(JSON.stringify(this.$scope.child));
             this.$messageBus.publish('hmf', 'child', c);
-            return;
         }
 
         /** Send the updated interests to the hmf service */
         private updateInterests() {
-           let i = JSON.parse(JSON.stringify(this.interests));
+            let i = JSON.parse(JSON.stringify(this.interests));
+            this.$messageBus.publish('hmf', 'interests', i);
             return;
         }
 
-        /** Send the POI to the hmf service and store it in the list of poi's */
+        /** Send the updated pois to the hmf service */
+        private updatePois() {
+            let p = JSON.parse(JSON.stringify(this.pois));
+            this.$messageBus.publish('hmf', 'pois', p);
+        }
+
+        /** Store POI in the list of poi's */
         private addPoi() {
             if (!this.$scope.poi.hasOwnProperty('type')) return;
             let p = JSON.parse(JSON.stringify(this.$scope.poi)); //clone
@@ -151,12 +163,21 @@ module hmf {
             return;
         }
 
+        private setPoiFromActionService(f: IFeature) {
+            var poi = new PointOfInterest();
+            poi.location = f.geometry;
+            this.openPoiModal(poi);
+        }
+
         private openAddPoiModal() {
             var poi = new PointOfInterest();
             this.openPoiModal(poi);
         }
 
+        private selectLocationFunc = (e) => { this.selectLocation(e); };
+
         private openPoiModal(inPoi: PointOfInterest) {
+            // if (this.$modal.getPromiseChain()) return; //returns null when no modal is opened 
             var backupPoi = JSON.parse(JSON.stringify(inPoi));
             this.removePoi(inPoi);
             var modalInstance = this.$modal.open({
@@ -167,15 +188,29 @@ module hmf {
                     poitypes: () => this.poitypes
                 }
             });
-            modalInstance.result.then((poi: PointOfInterest) => {
-                if (poi.hasOwnProperty('type') && poi.hasOwnProperty('name') && poi.hasOwnProperty('location')) {
-                    this.pois.push(poi);
+            modalInstance.result.then((data: any) => {
+                if (data.selectLocation) {
+                    this.editingPoi = data.poi;
+                    this.$mapService.map.on('click', this.selectLocationFunc);
+                } else {
+                    if (data.poi.hasOwnProperty('type') && data.poi.hasOwnProperty('name') && data.poi.hasOwnProperty('location')) {
+                        this.pois.push(data.poi);
+                    }
                 }
             }, () => {
                 if (backupPoi.hasOwnProperty('type') && backupPoi.hasOwnProperty('name') && backupPoi.hasOwnProperty('location')) {
                     this.pois.push(backupPoi);
                 }
             });
+        }
+
+        private selectLocation(e: any) {
+            var ll: L.LatLng = e.latlng;
+            if (!this.editingPoi.location) this.editingPoi.location = { type: 'Point', coordinates: [] };
+            this.editingPoi.location.coordinates = [ll.lng, ll.lat];
+            this.$mapService.map.off('click', this.selectLocationFunc);
+            this.openPoiModal(this.editingPoi);
+            return;
         }
 
         private addInterest() {
@@ -269,6 +304,8 @@ module hmf {
 
         private setPoiTypes() {
             this.poitypes = this.getKeysAndValuesOfEnum(PointOfInterestType);
+            this.poinames = [];
+            Object.keys(this.poitypes).forEach(key => this.poinames.push(key));
         }
 
         private setInterestTypes() {

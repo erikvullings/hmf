@@ -20,6 +20,7 @@
     "public\\app\\app.ts",
     "public\\app\\m.ts",
     "public\\hmf\\HmfSvc.ts",
+    "public\\hmf\\HmfActionModel.ts",
     "public\\hmf\\HmfWidget.ts",
     "public\\hmf\\HmfWidgetCtrl.ts",
     "public\\hmf\\POIViewCtrl.ts",

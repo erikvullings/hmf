@@ -33,6 +33,7 @@ module App {
             'geoService'
         ]; 
 
+        public hmfAction: hmf.HmfActionModel;
         public areaFilter: AreaFilter.AreaFilterModel;
         public contourAction: ContourAction.ContourActionModel;
         public accessibility: Accessibility.AccessibilityModel;
@@ -58,6 +59,8 @@ module App {
 
             $messageBusService.subscribe('project', (action: string) => {
                 if (action === 'loaded') {
+                    this.hmfAction = new hmf.HmfActionModel;
+                    this.$layerService.addActionService(this.hmfAction);
                     this.areaFilter = new AreaFilter.AreaFilterModel();
                     this.$layerService.addActionService(this.areaFilter);
                     this.contourAction = new ContourAction.ContourActionModel();

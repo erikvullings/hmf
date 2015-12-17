@@ -313,7 +313,12 @@ module hmf {
         }
 
         private setAttractors(attrs: Attractor[]) {
-            this.attractors = attrs;
+            this.attractors = attrs.sort((a, b) => { return (b.attractiveness - a.attractiveness); });
+        }
+
+        private setVisited(attr: Attractor) {
+            let a = JSON.parse(JSON.stringify(attr));
+            this.$messageBus.publish('hmf', 'visited', a);
         }
 
         private openCalendar(e: Event) {

@@ -54,6 +54,7 @@ module hmf {
     }
 
     export class Attractor {
+        visited: boolean = false;
         location: csComp.Services.IGeoJsonGeometry;
         constructor(private name: string, private attractorType: InterestType, public attractiveness: number) {
         }
@@ -124,9 +125,11 @@ module hmf {
                     case 'pois':
                         this.updatePOIs(data);
                         break;
+                    case 'visited':
+                        this.visitedAttractor(data);
+                        break;
                 }
             });
-
         }
 
         private updateChild(child: Child) {
@@ -142,6 +145,10 @@ module hmf {
         }
 
         private updatePOIs(pois: PointOfInterest[]) {
+            return;
+        }
+
+        private visitedAttractor(attr: Attractor) {
             return;
         }
 
@@ -191,6 +198,19 @@ module hmf {
             // Walk through all available layers, turn the layers on that are interesting (based on their type), 
             // and set the attractiveness of each feature. 
             return attractors;
+        }
+
+        /** Return the distance in meters between 2 Points from WGS84 degrees  */
+        public calculateDistance(loc1: csComp.Services.IGeoJsonGeometry, loc2: csComp.Services.IGeoJsonGeometry): number {
+            proj4.defs('RD', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 ' +
+                ' +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs');
+            var converter = proj4('RD');
+            var wgs1 = converter.forward(loc1.coordinates);
+            var wgs2 = converter.forward(loc2.coordinates);
+            var dx = wgs2[0] - wgs1[0];
+            var dy = wgs2[1] - wgs1[1];
+            var dist = Math.sqrt((dx * dx) + (dy * dy));
+            return dist;
         }
     }
 

@@ -182,16 +182,16 @@
 				<div class="row">
 					<h4 class="col-md-8">Aantrekkelijke locaties</h4>
 				</div>
-				<div class="row">
-					<div class="col-md-8 control-label">Naam</div>
-					<div class="col-md-4 control-label">Aantrekkelijkheid</div>
+				<div class="row" style="margin-bottom:8px">
+					<div class="col-md-6 bold-font">Naam</div>
+					<div class="col-md-6 bold-font">Aantrekkelijkheid</div>
 				</div>
 				<div class="row" ng-repeat="a in vm.attractors track by $index">
-					<div class="col-md-6 control-label" style="padding-left:15px;">{{a.name}}</div>
-					<div class="col-md-2 control-label" style="text-align:right">{{a.attractiveness}}</div>
+					<div class="col-md-6" style="padding-left:15px;">{{a.name}}</div>
+					<div class="col-md-2" style="text-align:right">{{a.attractiveness}}</div>
 					<div class="col-md-4 pull-right">
-						<label class="hmf-label-small" for="hmf-ao-{{$index}}">Visited:</label>
-						<input type="checkbox" ng-model="a.visited" id="hmf-ao-{{$index}}" />
+						<label for="hmf-ao-{{$index}}">Visited:</label>
+						<input type="checkbox" ng-model="a.visited" ng-change="vm.setVisited(a)" id="hmf-ao-{{$index}}" />
 						<button class="fa fa-search leftpanel-header-button" ng-click="vm.zoomToAttractor(a)" />
 					</div>
 				</div>

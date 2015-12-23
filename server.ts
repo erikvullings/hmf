@@ -1,6 +1,6 @@
 import Winston = require('winston');
 import * as csweb from "csweb";
-
+import fs = require('fs');
 
 Winston.remove(Winston.transports.Console);
 Winston.add(Winston.transports.Console, <Winston.ConsoleTransportOptions>{
@@ -14,6 +14,13 @@ var cs = new csweb.csServer(__dirname, <csweb.csServerOptions>{
 });
 cs.start(() => {
     console.log('started');
-        //    //{ key: "imb", s: new ImbAPI.ImbAPI("app-usdebug01.tsn.tno.nl", 4000),options: {} }
-        //    var ml = new MobileLayer.MobileLayer(api, "mobilelayer", "/api/resources/SGBO", server, messageBus, cm);
+    cs.server.post('/api/hmf', (req, res) => {
+        console.log('!!! SAVE DATA : %j', req.body);
+        //fs.writeFile(__dirname+'/public/data/projects/hmf/hmfheatmap.asc', req.body, function (err) {
+        //    if (err) throw err;
+        //    console.log(req.body + '/n  It\'s saved again!');
+        //});
+
+        res.end();
+    });
 });

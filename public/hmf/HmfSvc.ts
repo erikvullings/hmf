@@ -158,9 +158,9 @@ module hmf {
 
             // update attractors
             this.updateAttractors();
-            
+
             // update heatmap
-            this.createHeatMap(this.child); 
+            this.createHeatMap(this.child);
         }
 
         private updatePOIs(pois: PointOfInterest[]) {
@@ -189,7 +189,7 @@ module hmf {
                 }
             }
 
-            console.log("Relevant Attractors: " + this.relevantAttractors.length);
+            console.log('Relevant Attractors: ' + this.relevantAttractors.length);
             
             // publish attractor list
             this.messageBusService.publish('hmf', 'attractors', this.relevantAttractors);
@@ -333,20 +333,20 @@ module hmf {
             
 
             // create text string for file
-            var text = "";
-            text = text + "ncols "+nCols+"\n"
-                    + "nrows "+nRows+"\n"
-                    + "xllcorner " + xllcorner+"\n"
-                    + "yllcorner " + yllcorner+"\n"
-                    + "NODATA_value  -1\n\n";
+            var text = '';
+            text = text + 'ncols '+nCols+'\n'
+                    + 'nrows '+nRows+'\n'
+                    + 'xllcorner ' + xllcorner+'\n'
+                    + 'yllcorner ' + yllcorner+'\n'
+                    + 'NODATA_value  -1\n\n';
             
             for(var i: number = 0; i < nRows; i++) {
                 var row = grid[i];
                 for(var j: number = 0; j < nCols; j++) {
                     var cell : Cell = row[j];
-                    text = text + cell.value+" ";
+                    text = text + Math.floor(cell.value * 100)+' ';
                 }
-                text = text + "\n";
+                text = text + '\n';
                 
             }
             console.log(text);
@@ -361,7 +361,7 @@ module hmf {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:3003/api/hmf',
-                data: data,
+                data: {grid: data},
                 success: () => {}
             });
         } 

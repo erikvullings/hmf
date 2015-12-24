@@ -46,7 +46,7 @@ module hmf {
         address: Address;
         type: PointOfInterestType;
         location: csComp.Services.IGeoJsonGeometry;
-        attractiveness : number = 1;
+        attractiveness: number = 1;
     }
 
     export class Interest {
@@ -75,7 +75,7 @@ module hmf {
     }
 
     export class Cell {
-        value : number = 0.0; // likelihood of presence
+        value: number = 0.0; // likelihood of presence
         distance: number = 0.0; // distance to location 'last seen' (meters)
         constructor(public location: csComp.Services.IGeoJsonGeometry) {
         }
@@ -88,10 +88,10 @@ module hmf {
     }
 
     export class hmfSvc {
-        private child : Child;
+        private child: Child;
         private pointsOfInterest: PointOfInterest[] = [];
         private attractors: Attractor[] = []; // all attractors loaded from layers
-        private relevantAttractors : Attractor[] = []; // relevant attractors
+        private relevantAttractors: Attractor[] = []; // relevant attractors
         private interests: Interest[] = [];
 
         static $inject = [
@@ -168,33 +168,33 @@ module hmf {
             return;
         }
 
-        /** select and push relevant attractors */        
+        /** select and push relevant attractors */
         private updateAttractors() {
             this.relevantAttractors = [];
 
             // select relevant attractors            
-            for(var j: number = 0; j < this.attractors.length; j++) {
-                var attr : Attractor = this.attractors[j];
-                
-                for(var i: number = 0; i < this.interests.length; i++) {
-                    var interest : Interest = this.interests[i];
+            for (var j: number = 0; j < this.attractors.length; j++) {
+                var attr: Attractor = this.attractors[j];
+
+                for (var i: number = 0; i < this.interests.length; i++) {
+                    var interest: Interest = this.interests[i];
                     if (attr.attractorType == interest.interestType) {
                         attr.attractiveness = interest.attractiveness;
-                        break;                        
+                        break;
                     }
                 }
-                
-                if (attr.attractiveness > 0 && this.calculateDistance(this.child.location,attr.location) < 5000){
+
+                if (attr.attractiveness > 0 && this.calculateDistance(this.child.location, attr.location) < 5000) {
                     this.relevantAttractors.push(attr);
                 }
             }
 
             console.log('Relevant Attractors: ' + this.relevantAttractors.length);
-            
+
             // publish attractor list
             this.messageBusService.publish('hmf', 'attractors', this.relevantAttractors);
         }
-        
+
         private visitedAttractor(attr: Attractor) {
             // For now the attractiveness is set to 0; Just to see something happen
             attr.attractiveness = 0;
@@ -263,43 +263,43 @@ module hmf {
         }
 
         /** calculate cell likelihood (HMF approach) */
-        private calculateCellLikelihood(child:Child, cell:Cell):number{
+        private calculateCellLikelihood(child: Child, cell: Cell): number {
             var value = this.getPriorValue(child, cell.distance);
-            
-            var bf : number = 1;
-            
+
+            var bf: number = 1;
+
             // loop over attractors, adjust Bayes Factor
-            for(var j: number = 0; j < this.relevantAttractors.length; j++) {
-                var attr : Attractor = this.relevantAttractors[j];
+            for (var j: number = 0; j < this.relevantAttractors.length; j++) {
+                var attr: Attractor = this.relevantAttractors[j];
                 var attrDistance = this.calculateDistance(attr.location, cell.location);
-                
+
                 // 
                 if (attrDistance > 0) {
-                    var bfTemp = 1 + 10 * attr.attractiveness/100 * 1/(attrDistance/100) * 1/(this.calculateDistance(child.location,attr.location)/100);
+                    var bfTemp = 1 + 10 * attr.attractiveness / 100 * 1 / (attrDistance / 100) * 1 / (this.calculateDistance(child.location, attr.location) / 100);
                     bf = bf * bfTemp;
                 }
             }
 
             // loop over points of interest, adjust Bayes Factor
-            for(var j: number = 0; j < this.pointsOfInterest.length; j++) {
-                var poi : PointOfInterest = this.pointsOfInterest[j];
+            for (var j: number = 0; j < this.pointsOfInterest.length; j++) {
+                var poi: PointOfInterest = this.pointsOfInterest[j];
                 var poiDistance = this.calculateDistance(poi.location, cell.location);
-                
+
                 // update bf. Note that poi attractiveness is fixed to 1.
-                var bfTemp = 1 + 10 * poi.attractiveness * 1/(poiDistance/100) * 1/(this.calculateDistance(child.location,poi.location)/100);
+                var bfTemp = 1 + 10 * poi.attractiveness * 1 / (poiDistance / 100) * 1 / (this.calculateDistance(child.location, poi.location) / 100);
                 bf = bf * bfTemp;
-            } 
-            
+            }
+
             // adjust value with Bayes formula
-            value = (bf * (value/(1-value))) / (1 + (bf * (value/(1-value))))
-                       
+            value = (bf * (value / (1 - value))) / (1 + (bf * (value / (1 - value))))
+
             return value;
         }
 
         /** create heatmap with likelihood value per cell */
-        public createHeatMap(child:Child){
+        public createHeatMap(child: Child) {
             var centrePoint = child.location;
-            
+
             if (centrePoint.coordinates == null) {
                 return;
             }
@@ -308,66 +308,65 @@ module hmf {
             var nRows = 20;
             var deltaLon = 0.0014584288488676631;
             var deltaLat = -0.0008877224387042511;
-            
-            var xllcorner = centrePoint.coordinates[0] - 0.5*nCols*deltaLon;
-            var yllcorner = centrePoint.coordinates[1] - 0.5*nCols*deltaLat;
-            
+
+            var xllcorner = centrePoint.coordinates[0] - 0.5 * nCols * deltaLon;
+            var yllcorner = centrePoint.coordinates[1] - 0.5 * nCols * deltaLat;
+
             // initialize grid: create grid cells
-            var grid:Cell[][] = [];
-            for(var i: number = 0; i < nRows; i++) {
+            var grid: Cell[][] = [];
+            for (var i: number = 0; i < nRows; i++) {
                 grid[i] = [];
-                for(var j: number = 0; j < nCols; j++) {
+                for (var j: number = 0; j < nCols; j++) {
 
                     // find centre location of cell   
-                    var location : csComp.Services.IGeoJsonGeometry = { type: 'Point', coordinates: [] };
-                    location.coordinates = [xllcorner + (i+0.5)*deltaLon, yllcorner + (j+0.5)*deltaLat];
+                    var location: csComp.Services.IGeoJsonGeometry = { type: 'Point', coordinates: [] };
+                    location.coordinates = [xllcorner + (i + 0.5) * deltaLon, yllcorner + (j + 0.5) * deltaLat];
 
                     // init cell with some value
                     var cell = new Cell(location);
                     cell.distance = this.calculateDistance(centrePoint, location);
                     cell.value = this.calculateCellLikelihood(child, cell);
                     // add to grid
-                    grid[i][j] = cell; 
+                    grid[i][j] = cell;
                 }
             }
-            
 
             // create text string for file
             var text = '';
-            text = text + 'ncols '+nCols+'\n'
-                    + 'nrows '+nRows+'\n'
-                    + 'xllcorner ' + xllcorner+'\n'
-                    + 'yllcorner ' + yllcorner+'\n'
-                    + 'NODATA_value  -1\n\n';
-            
-            for(var i: number = 0; i < nRows; i++) {
+            text = text + 'ncols ' + nCols + '\n'
+                + 'nrows ' + nRows + '\n'
+                + 'xllcorner ' + xllcorner + '\n'
+                + 'yllcorner ' + yllcorner + '\n'
+                + 'NODATA_value  -1\n\n';
+
+            for (var i: number = 0; i < nRows; i++) {
                 var row = grid[i];
-                for(var j: number = 0; j < nCols; j++) {
-                    var cell : Cell = row[j];
-                    text = text + Math.floor(cell.value * 100)+' ';
+                for (var j: number = 0; j < nCols; j++) {
+                    var cell: Cell = row[j];
+                    text = text + Math.floor(cell.value * 100) + ' ';
                 }
                 text = text + '\n';
-                
+
             }
             console.log(text);
 
             // update grid layer (send to server)            
             this.updateGridLayer(text);
-            
+
         }
-        
+
         /** Accepts a grid string and sends it to the server */
         private updateGridLayer(data: string) {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:3003/api/hmf',
-                data: {grid: data},
-                success: () => {}
+                data: { grid: data },
+                success: () => { }
             });
-        } 
-        
+        }
+
         /** returns % of children found back within bandwidth. Values from Garmpian Police*/
-        public getPriorValue(child:Child, distance:number) : number {
+        public getPriorValue(child: Child, distance: number): number {
             if (!child.hasOwnProperty('age') || !child.hasOwnProperty('gender')) return 0;
 
             // children from 1 to 4
@@ -384,7 +383,7 @@ module hmf {
                     return 0.08;
                 } else {
                     return 0.05;
-                } 
+                }
             }
 
             // children 5 to 8            
@@ -403,7 +402,7 @@ module hmf {
                     return 0.09;
                 } else {
                     return 0.05;
-                } 
+                }
             }
 
             // children 9 to 11            
@@ -420,7 +419,7 @@ module hmf {
                     return 0.1;
                 } else {
                     return 0.05;
-                } 
+                }
             }
 
             // children 12 to 14            
@@ -437,9 +436,9 @@ module hmf {
                     return 0.1;
                 } else {
                     return 0.05;
-                } 
+                }
             }
-                        
+
             // children 12 to 14            
             if (child.age <= 16) {
                 if (distance < 2300) {
@@ -454,7 +453,7 @@ module hmf {
                     return 0.1;
                 } else {
                     return 0.05;
-                } 
+                }
             }
         }
     }

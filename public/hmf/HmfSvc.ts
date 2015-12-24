@@ -114,7 +114,10 @@ module hmf {
                 id: 'hmfwidget',
                 icon: 'images/missing_boy.png',
                 description: 'Show HMF widget'
-            }
+            };
+
+            proj4.defs('RD', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 ' +
+                ' +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs');
 
             this.messageBusService.subscribe('project', (title) => {
                 if (title !== 'loaded') return;
@@ -251,8 +254,6 @@ module hmf {
 
         /** Return the distance in meters between 2 Points from WGS84 degrees  */
         public calculateDistance(loc1: csComp.Services.IGeoJsonGeometry, loc2: csComp.Services.IGeoJsonGeometry): number {
-            proj4.defs('RD', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 ' +
-                ' +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs');
             var converter = proj4('RD');
             var wgs1 = converter.forward(loc1.coordinates);
             var wgs2 = converter.forward(loc2.coordinates);
@@ -304,13 +305,14 @@ module hmf {
                 return;
             }
 
-            var nCols = 20;
-            var nRows = 20;
+            var nCols = 60;
+            var nRows = 40;
             var deltaLon = 0.0014584288488676631;
             var deltaLat = -0.0008877224387042511;
 
             var xllcorner = centrePoint.coordinates[0] - 0.5 * nCols * deltaLon;
-            var yllcorner = centrePoint.coordinates[1] - 0.5 * nCols * deltaLat;
+            var yllcorner = centrePoint.coordinates[1] + 0.5 * nRows * deltaLat; // +, because deltaLat is negative
+            var yTopLeftCorner = centrePoint.coordinates[1] - 0.5 * nRows * deltaLat;
 
             // initialize grid: create grid cells
             var grid: Cell[][] = [];
@@ -320,7 +322,8 @@ module hmf {
 
                     // find centre location of cell   
                     var location: csComp.Services.IGeoJsonGeometry = { type: 'Point', coordinates: [] };
-                    location.coordinates = [xllcorner + (i + 0.5) * deltaLon, yllcorner + (j + 0.5) * deltaLat];
+                    // Use topleftcorner instead of lower left, because the grid array starts at the top
+                    location.coordinates = [xllcorner + (j + 0.5) * deltaLon, yTopLeftCorner + (i + 0.5) * deltaLat];
 
                     // init cell with some value
                     var cell = new Cell(location);

@@ -36,19 +36,19 @@
                     }, {
                         "label" : "20",
                         "value" : 20,
-                        "color" : "#44aa00"
+                        "color" : "#44ff00"
                     }, {
                         "label" : "40",
                         "value" : 40,
-                        "color" : "#777700"
+                        "color" : "#bbff00"
                     }, {
                         "label" : "60",
                         "value" : 60,
-                        "color" : "#aa5500"
+                        "color" : "#ffbb00"
                     }, {
                         "label" : "80",
                         "value" : 80,
-                        "color" : "#cc3300"
+                        "color" : "#ff4400"
                     }, {
                         "label" : "100",
                         "value" : 100,

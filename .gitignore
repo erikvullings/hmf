@@ -13,3 +13,4 @@ server.js
 dist/
 
 public/data/projects/hmf/hmfheatmap.asc
+public/data/api/

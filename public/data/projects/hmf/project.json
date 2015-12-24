@@ -79,7 +79,7 @@
                     "description": "Heatmap voor vermist kind",
                     "type": "grid",
                     "renderType": "gridlayer",
-                    "url": "data/projects/hmf/hmfheatmap.asc",
+                    "url": "api/layers/hmfheatmap",
                     "typeUrl": "data/resourcetypes/hmfheatmaptypes.json",
                     "opacity": 45,
                     "dataSourceParameters": {

@@ -11,6 +11,8 @@ Winston.add(Winston.transports.Console, <Winston.ConsoleTransportOptions>{
 });
 
 var apiLayersFolder = path.join(__dirname, 'public', 'data', 'api', 'layers');
+// Create empty heatmap layer
+var layer = createGridLayer('');
 
 // Clean old heatmap layers before starting the server
 fs.readdir(apiLayersFolder, (err, files) => {
@@ -24,13 +26,13 @@ fs.readdir(apiLayersFolder, (err, files) => {
                 } else {
                     console.log('Deleted ' + f);
                 }
+                fs.writeFile(path.join(apiLayersFolder, 'hmfheatmap.json'), JSON.stringify(layer), (err) => {
+                    (err) ? console.log(err.message) : console.log('Written layer file to ' + apiLayersFolder);
+                });
             });
         });
     }
 });
-// Create empty heatmap layer
-var layer = createGridLayer('');
-fs.writeFile(path.join(apiLayersFolder, 'hmfheatmap.json'), JSON.stringify(layer), (err) => { });
 
 var cs = new csweb.csServer(__dirname, <csweb.csServerOptions>{
     port: 3003

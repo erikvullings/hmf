@@ -305,8 +305,8 @@ module hmf {
                 return;
             }
 
-            var nCols = 60;
-            var nRows = 40;
+            var nCols = 36;
+            var nRows = 24;
             var deltaLon = 0.0014584288488676631;
             var deltaLat = -0.0008877224387042511;
 

@@ -41,7 +41,7 @@
             "editMode": false,
             "showMap": true,
             "showTimeline": true,
-            "showLeftmenu": true,
+            "showLeftmenu": false,
             "showLegend": false,
             "showRightmenu": false,
             "showBackgroundImage": false,
@@ -59,7 +59,8 @@
                     "data": {}
                 }
             ],
-            "mobile": true
+            "mobile": true,
+            "visiblelayers": ["hmfheatmap"]
         }
     ],
     "expertMode": 3,
@@ -74,6 +75,7 @@
             "oneLayerActive": true,
             "layers": [
                 {
+                    "reference": "hmfheatmap",
                     "id": "hmfheatmap",
                     "title": "Heatmap",
                     "description": "Heatmap voor vermist kind",
